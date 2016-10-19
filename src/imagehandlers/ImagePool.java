@@ -22,11 +22,11 @@ public class ImagePool {
     images = new ArrayList<>();
   }
   
-  public void addImage(File imageFile) throws IOException {
+  public void addImage(File [] imageFiles) throws IOException {
     BufferedImage bimg = null;
-    bimg = ImageIO.read(imageFile);
-    images.add(new ImageObject(bimg, imageFile.getName()));
-    System.out.println("Added " + imageFile.getPath());
+    for (File file : imageFiles) {
+      images.add(new ImageObject(ImageIO.read(file), file.getName()));
+    }
   }
   
   public ArrayList<ImageObject> getImages() {

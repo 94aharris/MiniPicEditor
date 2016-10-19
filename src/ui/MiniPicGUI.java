@@ -5,6 +5,7 @@
  */
 package ui;
 
+import imagehandlers.ImageObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -54,20 +55,21 @@ public class MiniPicGUI extends javax.swing.JFrame {
     percSigLbl = new javax.swing.JLabel();
     hgtPxLbl = new javax.swing.JLabel();
     wdtPxLbl = new javax.swing.JLabel();
-    jButton1 = new javax.swing.JButton();
+    resizeBtn = new javax.swing.JButton();
     aspectRatioChkBox = new javax.swing.JCheckBox();
-    percSpinValue = new javax.swing.JSpinner();
-    importPhotoBtn = new javax.swing.JButton();
+    percentSpinner = new javax.swing.JSpinner();
+    importImagesBtn = new javax.swing.JButton();
+    clearListBtn = new javax.swing.JButton();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("MiniPic - LightWeight Photo Resize Tool");
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
     photoList.setBorder(new javax.swing.border.MatteBorder(null));
-    photoList.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "here it is", "and", "another" };
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
+    photoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+      public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+        photoListValueChanged(evt);
+      }
     });
     photoScroll.setViewportView(photoList);
 
@@ -85,6 +87,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     resizeSlider.setValue(100);
+    resizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
+      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        resizeSliderStateChanged(evt);
+      }
+    });
 
     resizeOptionsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     resizeOptionsLabel.setText("Resize Image Options");
@@ -110,7 +117,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     wdtPxLbl.setText("px");
 
-    jButton1.setText("Resize");
+    resizeBtn.setText("Resize");
 
     aspectRatioChkBox.setSelected(true);
     aspectRatioChkBox.setText("Keep Aspect Ratio");
@@ -120,12 +127,25 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    percSpinValue.setRequestFocusEnabled(false);
+    percentSpinner.setRequestFocusEnabled(false);
+    percentSpinner.setValue(100);
+    percentSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        percentSpinnerStateChanged(evt);
+      }
+    });
 
-    importPhotoBtn.setText("Import...");
-    importPhotoBtn.addActionListener(new java.awt.event.ActionListener() {
+    importImagesBtn.setText("Import...");
+    importImagesBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
-        importPhotoBtnActionPerformed(evt);
+        importImagesBtnActionPerformed(evt);
+      }
+    });
+
+    clearListBtn.setText("Clear");
+    clearListBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        clearListBtnActionPerformed(evt);
       }
     });
 
@@ -136,20 +156,24 @@ public class MiniPicGUI extends javax.swing.JFrame {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(photoScroll)
+          .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
           .addGroup(layout.createSequentialGroup()
             .addComponent(photoScrollLabel)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-            .addComponent(importPhotoBtn)))
+            .addGap(6, 6, 6)
+            .addComponent(importImagesBtn)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(clearListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(resizeSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-          .addComponent(resizeOptionsLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(resizeOptionsLabel))
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
               .addGroup(layout.createSequentialGroup()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(resizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(aspectRatioChkBox))
               .addGroup(layout.createSequentialGroup()
                 .addComponent(saveLabel)
@@ -165,7 +189,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(wdtTxtField)
                   .addComponent(hgtTxtField)
-                  .addComponent(percSpinValue))
+                  .addComponent(percentSpinner))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(hgtPxLbl)
@@ -182,7 +206,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(photoScrollLabel)
           .addComponent(resizeOptionsLabel)
-          .addComponent(importPhotoBtn))
+          .addComponent(importImagesBtn)
+          .addComponent(clearListBtn))
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
@@ -192,7 +217,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(percSigLbl)
                 .addComponent(percLbl))
-              .addComponent(percSpinValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(percentSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(hgtTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,7 +230,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addComponent(widthLbl))
             .addGap(32, 32, 32)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-              .addComponent(jButton1)
+              .addComponent(resizeBtn)
               .addComponent(aspectRatioChkBox))
             .addGap(18, 18, 18)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,8 +256,9 @@ public class MiniPicGUI extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_aspectRatioChkBoxActionPerformed
 
-  private void importPhotoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importPhotoBtnActionPerformed
+  private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
     JFileChooser fileChooser = new JFileChooser(".");
+    fileChooser.setMultiSelectionEnabled(true);
     FileFilter imageFilter = new FileNameExtensionFilter("Image Files", ImageIO.getReaderFileSuffixes());
     fileChooser.addChoosableFileFilter(imageFilter);
     fileChooser.setAcceptAllFileFilterUsed(false);
@@ -240,11 +266,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     int result = fileChooser.showOpenDialog(fileChooser);
     if (result == JFileChooser.APPROVE_OPTION) {
       
-      File selectedFile = fileChooser.getSelectedFile();
-      try(Scanner sc = new Scanner(selectedFile)) {
-        imagePool.addImage(selectedFile);
+      File [] selectedFiles = fileChooser.getSelectedFiles();
+      try(Scanner sc = new Scanner(selectedFiles[0])) {
+        imagePool.addImage(selectedFiles);
         photoList.setModel(new javax.swing.AbstractListModel () {
-          Object[] imageListArray = { imagePool.getImages().toArray() };
+          ImageObject[] imageListArray = imagePool.getImages().toArray(new ImageObject [imagePool.getImages().size()]);
           public int getSize() { return imageListArray.length; }
           public Object getElementAt(int i) { return imageListArray[i]; }          
         });
@@ -254,7 +280,46 @@ public class MiniPicGUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Image can not be opened", "File Open Error", JOptionPane.ERROR_MESSAGE);
       }
     }
-  }//GEN-LAST:event_importPhotoBtnActionPerformed
+  }//GEN-LAST:event_importImagesBtnActionPerformed
+
+  private void clearListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearListBtnActionPerformed
+    imagePool = new ImagePool();
+    photoList.setModel(new javax.swing.AbstractListModel() {
+      String[] strings = { "<No Files Added Yet>" };
+      public int getSize() { return strings.length; }
+      public Object getElementAt(int i) { return strings[i]; }
+    });
+  }//GEN-LAST:event_clearListBtnActionPerformed
+
+  private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
+      percentSpinner.setValue(resizeSlider.getValue());
+  }//GEN-LAST:event_resizeSliderStateChanged
+
+  private void photoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_photoListValueChanged
+    resizeSlider.setValue(100);
+    percentSpinner.setValue(100);
+    
+    int [] selectedImages = photoList.getSelectedIndices();
+    if (selectedImages.length > 1) {
+      aspectRatioChkBox.getModel().setPressed(false);
+      aspectRatioChkBox.getModel().setEnabled(false);
+      hgtTxtField.setEnabled(false);
+      wdtTxtField.setEnabled(false);
+    }
+    else if (selectedImages.length == 1) {
+      aspectRatioChkBox.getModel().setEnabled(true);
+      aspectRatioChkBox.getModel().setPressed(true);
+      hgtTxtField.setEnabled(true);
+      hgtTxtField.setText(((ImageObject)photoList.getModel().getElementAt(selectedImages[0])).getHeight() + "");
+      wdtTxtField.setEnabled(true);
+      wdtTxtField.setText(((ImageObject)photoList.getModel().getElementAt(selectedImages[0])).getWidth() + "");
+    }
+    
+  }//GEN-LAST:event_photoListValueChanged
+
+  private void percentSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_percentSpinnerStateChanged
+    resizeSlider.setValue((int)percentSpinner.getValue());
+  }//GEN-LAST:event_percentSpinnerStateChanged
 
   /**
    * @param args the command line arguments
@@ -293,17 +358,18 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox aspectRatioChkBox;
+  private javax.swing.JButton clearListBtn;
   private javax.swing.JLabel heightLbl;
   private javax.swing.JLabel hgtPxLbl;
   private javax.swing.JTextField hgtTxtField;
-  private javax.swing.JButton importPhotoBtn;
-  private javax.swing.JButton jButton1;
+  private javax.swing.JButton importImagesBtn;
   private javax.swing.JLabel percLbl;
   private javax.swing.JLabel percSigLbl;
-  private javax.swing.JSpinner percSpinValue;
+  private javax.swing.JSpinner percentSpinner;
   private javax.swing.JList photoList;
   private javax.swing.JScrollPane photoScroll;
   private javax.swing.JLabel photoScrollLabel;
+  private javax.swing.JButton resizeBtn;
   private javax.swing.JLabel resizeOptionsLabel;
   private javax.swing.JSlider resizeSlider;
   private javax.swing.JLabel saveLabel;

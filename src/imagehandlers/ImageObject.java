@@ -20,6 +20,14 @@ public class ImageObject {
   public String toString() {
     return fileName;
   }
+  
+  public int getHeight () {
+    return bimg.getHeight();
+  }
+  
+  public int getWidth () {
+    return bimg.getWidth();
+  }
 }
 
 
