@@ -24,9 +24,15 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class MiniPicGUI extends javax.swing.JFrame {
   
   ImagePool imagePool;
+  int percentScale;
+  int heightPx;
+  int widthPx;
   
   public MiniPicGUI() {
     imagePool = new ImagePool();
+    percentScale = 100;
+    heightPx = 0;
+    widthPx = 0;
     initComponents();
   }
 
@@ -86,7 +92,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    resizeSlider.setValue(100);
+    resizeSlider.setValue(percentScale);
     resizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         resizeSliderStateChanged(evt);
@@ -96,9 +102,9 @@ public class MiniPicGUI extends javax.swing.JFrame {
     resizeOptionsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     resizeOptionsLabel.setText("Resize Image Options");
 
-    hgtTxtField.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        hgtTxtFieldActionPerformed(evt);
+    wdtTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseExited(java.awt.event.MouseEvent evt) {
+        wdtTxtFieldMouseExited(evt);
       }
     });
 
@@ -121,14 +127,14 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     aspectRatioChkBox.setSelected(true);
     aspectRatioChkBox.setText("Keep Aspect Ratio");
-    aspectRatioChkBox.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(java.awt.event.ActionEvent evt) {
-        aspectRatioChkBoxActionPerformed(evt);
+    aspectRatioChkBox.addChangeListener(new javax.swing.event.ChangeListener() {
+      public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        aspectRatioChkBoxStateChanged(evt);
       }
     });
 
     percentSpinner.setRequestFocusEnabled(false);
-    percentSpinner.setValue(100);
+    percentSpinner.setValue(percentScale);
     percentSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         percentSpinnerStateChanged(evt);
@@ -248,14 +254,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
     // TODO add your handling code here:
   }//GEN-LAST:event_savePathButtonActionPerformed
 
-  private void hgtTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hgtTxtFieldActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_hgtTxtFieldActionPerformed
-
-  private void aspectRatioChkBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aspectRatioChkBoxActionPerformed
-    // TODO add your handling code here:
-  }//GEN-LAST:event_aspectRatioChkBoxActionPerformed
-
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
     JFileChooser fileChooser = new JFileChooser(".");
     fileChooser.setMultiSelectionEnabled(true);
@@ -292,7 +290,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_clearListBtnActionPerformed
 
   private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
-      percentSpinner.setValue(resizeSlider.getValue());
+    percentScale = resizeSlider.getValue();
+    percentSpinner.setValue(percentScale);
+    
+    if (photoList.getSelectedIndices().length == 1) {
+      ImageObject selectedImage = (ImageObject) photoList.getModel().getElementAt(0);
+      heightPx = (selectedImage.getHeight() * percentScale) / 100;
+      widthPx = (selectedImage.getWidth() * percentScale) / 100;
+      hgtTxtField.setText(heightPx + "");
+      wdtTxtField.setText(widthPx + "");
+    }
   }//GEN-LAST:event_resizeSliderStateChanged
 
   private void photoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_photoListValueChanged
@@ -301,7 +308,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     
     int [] selectedImages = photoList.getSelectedIndices();
     if (selectedImages.length > 1) {
-      aspectRatioChkBox.getModel().setPressed(false);
+      aspectRatioChkBox.getModel().setSelected(true);
       aspectRatioChkBox.getModel().setEnabled(false);
       hgtTxtField.setEnabled(false);
       wdtTxtField.setEnabled(false);
@@ -318,8 +325,39 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_photoListValueChanged
 
   private void percentSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_percentSpinnerStateChanged
-    resizeSlider.setValue((int)percentSpinner.getValue());
+    if ((int)percentSpinner.getModel().getValue() < 100 && (int)percentSpinner.getModel().getValue() > 0) {
+      percentScale = (int)percentSpinner.getModel().getValue();  
+    }
+    percentSpinner.setValue((int)percentScale);
+    resizeSlider.setValue((int)percentScale);
+    
+    if (photoList.getSelectedIndices().length == 1) {
+      ImageObject selectedImage = (ImageObject) photoList.getModel().getElementAt(0);
+      heightPx = (selectedImage.getHeight() * percentScale) / 100;
+      widthPx = (selectedImage.getWidth() * percentScale) / 100;
+      hgtTxtField.setText(heightPx + "");
+      wdtTxtField.setText(widthPx + "");
+    }
   }//GEN-LAST:event_percentSpinnerStateChanged
+
+  private void aspectRatioChkBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_aspectRatioChkBoxStateChanged
+    resizeSlider.setEnabled(aspectRatioChkBox.getModel().isSelected());
+    percentSpinner.setEnabled(aspectRatioChkBox.getModel().isSelected());
+  }//GEN-LAST:event_aspectRatioChkBoxStateChanged
+
+  private void wdtTxtFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wdtTxtFieldMouseExited
+    if (photoList.getSelectedIndices().length == 1) {
+      try {
+        widthPx = Integer.parseInt(wdtTxtField.getText());
+        ImageObject selectedImage = (ImageObject)photoList.getModel().getElementAt(0);
+        heightPx = (widthPx * selectedImage.getHeight()) / selectedImage.getWidth();
+        hgtTxtField.setText(heightPx + "");
+        percentScale = (heightPx / (selectedImage.getHeight() * 100));
+        resizeSlider.setValue(percentScale);
+        percentSpinner.getModel().setValue(percentScale);
+      } catch (NumberFormatException e) {hgtTxtField.setText("");}
+    }
+  }//GEN-LAST:event_wdtTxtFieldMouseExited
 
   /**
    * @param args the command line arguments
@@ -355,6 +393,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
   }
+  
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox aspectRatioChkBox;
