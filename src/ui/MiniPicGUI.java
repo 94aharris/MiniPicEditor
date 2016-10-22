@@ -374,7 +374,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_wdtTxtFieldMouseExited
 
   private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
-    
+    for (Object item : photoList.getSelectedValuesList()) {
+      BufferedImage newBimg = ((ImageObject)item).getImage();
+      if (aspectRatioChkBox.isSelected()) {
+        BufferedImage resizeImage = imagePool.resizeImage(newBimg, percentScale);
+        imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString());
+      }
+      else {
+        imagePool.resizeImage(newBimg, heightPx, widthPx);
+      }
+    }
   }//GEN-LAST:event_resizeBtnActionPerformed
 
   /**

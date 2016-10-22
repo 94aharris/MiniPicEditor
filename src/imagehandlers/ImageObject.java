@@ -28,6 +28,10 @@ public class ImageObject {
   public int getWidth () {
     return bimg.getWidth();
   }
+  
+  public BufferedImage getImage() {
+    return bimg;
+  }
 }
 
 
