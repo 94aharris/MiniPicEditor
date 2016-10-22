@@ -256,6 +256,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Resize"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resizeBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="aspectRatioChkBox">
       <Properties>

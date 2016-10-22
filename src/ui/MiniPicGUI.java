@@ -27,6 +27,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
   int percentScale;
   int heightPx;
   int widthPx;
+  File saveLocation;
+  
   
   public MiniPicGUI() {
     imagePool = new ImagePool();
@@ -124,6 +126,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     wdtPxLbl.setText("px");
 
     resizeBtn.setText("Resize");
+    resizeBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        resizeBtnActionPerformed(evt);
+      }
+    });
 
     aspectRatioChkBox.setSelected(true);
     aspectRatioChkBox.setText("Keep Aspect Ratio");
@@ -251,7 +258,14 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void savePathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePathButtonActionPerformed
-    // TODO add your handling code here:
+    JFileChooser folderChooser = new JFileChooser(".");
+    folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    folderChooser.setAcceptAllFileFilterUsed(false);
+    int result = folderChooser.showOpenDialog(folderChooser);
+    if (result == JFileChooser.APPROVE_OPTION) {
+      saveTextField.setText(folderChooser.getSelectedFile().getPath());
+      saveLocation = folderChooser.getSelectedFile();
+    }
   }//GEN-LAST:event_savePathButtonActionPerformed
 
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
@@ -358,6 +372,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
       } catch (NumberFormatException e) {hgtTxtField.setText("");}
     }
   }//GEN-LAST:event_wdtTxtFieldMouseExited
+
+  private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
+    
+  }//GEN-LAST:event_resizeBtnActionPerformed
 
   /**
    * @param args the command line arguments
