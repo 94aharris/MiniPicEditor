@@ -5,6 +5,8 @@
  */
 package imagehandlers;
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -40,22 +42,27 @@ public class ImagePool {
     int oldWidth = img.getWidth();
     int oldHeight = img.getHeight();
     BufferedImage dimg = dimg = new BufferedImage(newWidth, newHeight, img.getType());
+    Graphics2D g = dimg.createGraphics();  
+    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
+    g.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, oldWidth, oldHeight, null);  
+    g.dispose();  
     return dimg;
   }
   
   public BufferedImage resizeImage (BufferedImage img, int percent) {
     int newHeight = (img.getHeight() * percent) / 100;
     int newWidth = (img.getWidth() * percent) / 100;
-    return resizeImage(img, newHeight, newWidth);
+    return resizeImage(img, newWidth, newHeight);
   }
   
   public void saveImage(BufferedImage img, String saveLocation, String fileName) {
     try {
       System.out.println("Whut");
+      System.out.println(img.getHeight() + "x" + img.getWidth());
       String format = (fileName.endsWith(".png")) ? "png" : "jpg";
       String[] splits = fileName.split( "\\." );
-      fileName = splits[0] + "_resized" + splits[1];
-      ImageIO.write(img, format, new File(saveLocation + "\\" + fileName));
+      fileName = splits[0] + "_resized." + format;
+      ImageIO.write(img, format, new File(saveLocation + fileName));
     } catch (IOException e) {
       e.printStackTrace();
     }

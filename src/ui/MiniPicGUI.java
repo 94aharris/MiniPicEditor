@@ -379,6 +379,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       if (aspectRatioChkBox.isSelected()) {
         BufferedImage resizeImage = imagePool.resizeImage(newBimg, percentScale);
         imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString());
+
       }
       else {
         imagePool.resizeImage(newBimg, heightPx, widthPx);
