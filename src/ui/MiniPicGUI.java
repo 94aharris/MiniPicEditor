@@ -104,12 +104,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
     resizeOptionsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     resizeOptionsLabel.setText("Resize Image Options");
 
-    wdtTxtField.addMouseListener(new java.awt.event.MouseAdapter() {
-      public void mouseExited(java.awt.event.MouseEvent evt) {
-        wdtTxtFieldMouseExited(evt);
-      }
-    });
-
     percLbl.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     percLbl.setText("Percentage");
 
@@ -258,7 +252,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void savePathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePathButtonActionPerformed
-    JFileChooser folderChooser = new JFileChooser(".");
+    JFileChooser folderChooser;
+    if (saveTextField.equals("")) {
+      folderChooser = new JFileChooser(".");
+    }
+    else {
+      folderChooser = new JFileChooser(saveTextField.getText());
+    }
     folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     folderChooser.setAcceptAllFileFilterUsed(false);
     int result = folderChooser.showOpenDialog(folderChooser);
@@ -286,10 +286,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
           public int getSize() { return imageListArray.length; }
           public Object getElementAt(int i) { return imageListArray[i]; }          
         });
+        if (saveTextField.getText().equals("")) {
+          saveTextField.setText(selectedFiles[0].getParent());
+        }
       }  catch (FileNotFoundException e) {
         JOptionPane.showMessageDialog(null, "Image can not be opened", "File Open Error", JOptionPane.ERROR_MESSAGE);
       } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "Image can not be opened", "File Open Error", JOptionPane.ERROR_MESSAGE);
+      } catch (NullPointerException e) {
+        JOptionPane.showMessageDialog(null, "Error Pointing to File", "Image Open Error", JOptionPane.ERROR_MESSAGE);
       }
     }
   }//GEN-LAST:event_importImagesBtnActionPerformed
@@ -359,27 +364,17 @@ public class MiniPicGUI extends javax.swing.JFrame {
     percentSpinner.setEnabled(aspectRatioChkBox.getModel().isSelected());
   }//GEN-LAST:event_aspectRatioChkBoxStateChanged
 
-  private void wdtTxtFieldMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_wdtTxtFieldMouseExited
-    if (photoList.getSelectedIndices().length == 1) {
-      try {
-        widthPx = Integer.parseInt(wdtTxtField.getText());
-        ImageObject selectedImage = (ImageObject)photoList.getModel().getElementAt(0);
-        heightPx = (widthPx * selectedImage.getHeight()) / selectedImage.getWidth();
-        hgtTxtField.setText(heightPx + "");
-        percentScale = (heightPx / (selectedImage.getHeight() * 100));
-        resizeSlider.setValue(percentScale);
-        percentSpinner.getModel().setValue(percentScale);
-      } catch (NumberFormatException e) {hgtTxtField.setText("");}
-    }
-  }//GEN-LAST:event_wdtTxtFieldMouseExited
-
   private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
     for (Object item : photoList.getSelectedValuesList()) {
       BufferedImage newBimg = ((ImageObject)item).getImage();
       if (aspectRatioChkBox.isSelected()) {
         BufferedImage resizeImage = imagePool.resizeImage(newBimg, percentScale);
-        imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString());
-
+        try {
+          imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString());
+          JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved", "Success", JOptionPane.PLAIN_MESSAGE);
+        } catch (NullPointerException e) {
+          JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
+        }  
       }
       else {
         imagePool.resizeImage(newBimg, heightPx, widthPx);

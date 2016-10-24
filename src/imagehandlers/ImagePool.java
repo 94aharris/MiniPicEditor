@@ -57,12 +57,10 @@ public class ImagePool {
   
   public void saveImage(BufferedImage img, String saveLocation, String fileName) {
     try {
-      System.out.println("Whut");
-      System.out.println(img.getHeight() + "x" + img.getWidth());
       String format = (fileName.endsWith(".png")) ? "png" : "jpg";
       String[] splits = fileName.split( "\\." );
       fileName = splits[0] + "_resized." + format;
-      ImageIO.write(img, format, new File(saveLocation + fileName));
+      ImageIO.write(img, format, new File(saveLocation + "/" + fileName));
     } catch (IOException e) {
       e.printStackTrace();
     }

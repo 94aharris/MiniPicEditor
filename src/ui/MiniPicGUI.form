@@ -209,9 +209,6 @@
     <Component class="javax.swing.JTextField" name="hgtTxtField">
     </Component>
     <Component class="javax.swing.JTextField" name="wdtTxtField">
-      <Events>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="wdtTxtFieldMouseExited"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="percLbl">
       <Properties>
