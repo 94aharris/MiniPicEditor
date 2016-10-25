@@ -87,6 +87,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     saveLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     saveLabel.setText("Save To");
 
+    saveTextField.setEditable(false);
     saveTextField.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
 
     savePathButton.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
@@ -310,6 +311,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
         });
         if (saveTextField.getText().equals("")) {
           saveTextField.setText(selectedFiles[0].getParent());
+          saveLocation = selectedFiles[0].getParentFile();
         }
       }  catch (FileNotFoundException e) {
         JOptionPane.showMessageDialog(null, "Image can not be opened", "File Open Error", JOptionPane.ERROR_MESSAGE);
@@ -324,7 +326,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private void clearListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearListBtnActionPerformed
     imagePool = new ImagePool();
     photoList.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = { "<No Files Added Yet>" };
+      String[] strings = {};
       public int getSize() { return strings.length; }
       public Object getElementAt(int i) { return strings[i]; }
     });
