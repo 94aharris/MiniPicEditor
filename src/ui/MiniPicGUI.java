@@ -71,6 +71,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
     setTitle("MiniPic - LightWeight Photo Resize Tool");
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+    photoScroll.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+
     photoList.setBorder(new javax.swing.border.MatteBorder(null));
     photoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
       public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -79,12 +81,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
     photoScroll.setViewportView(photoList);
 
-    photoScrollLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    photoScrollLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     photoScrollLabel.setText("Imported Photos");
 
-    saveLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    saveLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     saveLabel.setText("Save To");
 
+    saveTextField.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+
+    savePathButton.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     savePathButton.setText("...");
     savePathButton.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,6 +97,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
+    resizeSlider.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     resizeSlider.setValue(percentScale);
     resizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -99,24 +105,37 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    resizeOptionsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    resizeOptionsLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     resizeOptionsLabel.setText("Resize Image Options");
 
-    percLbl.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    hgtTxtField.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+
+    wdtTxtField.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+    wdtTxtField.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        wdtTxtFieldActionPerformed(evt);
+      }
+    });
+
+    percLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     percLbl.setText("Percentage");
 
-    widthLbl.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    widthLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     widthLbl.setText("Width");
 
-    heightLbl.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+    heightLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     heightLbl.setText("Height");
 
+    percSigLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     percSigLbl.setText("%");
 
+    hgtPxLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     hgtPxLbl.setText("px");
 
+    wdtPxLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     wdtPxLbl.setText("px");
 
+    resizeBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     resizeBtn.setText("Resize");
     resizeBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +143,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
+    aspectRatioChkBox.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     aspectRatioChkBox.setSelected(true);
     aspectRatioChkBox.setText("Keep Aspect Ratio");
     aspectRatioChkBox.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -132,6 +152,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
+    percentSpinner.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     percentSpinner.setRequestFocusEnabled(false);
     percentSpinner.setValue(percentScale);
     percentSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -140,13 +161,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
+    importImagesBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     importImagesBtn.setText("Import...");
+    importImagesBtn.setInheritsPopupMenu(true);
     importImagesBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         importImagesBtnActionPerformed(evt);
       }
     });
 
+    clearListBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     clearListBtn.setText("Clear");
     clearListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,7 +185,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       .addGroup(layout.createSequentialGroup()
         .addContainerGap()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+          .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
           .addGroup(layout.createSequentialGroup()
             .addComponent(photoScrollLabel)
             .addGap(6, 6, 6)
@@ -178,7 +202,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
               .addGroup(layout.createSequentialGroup()
                 .addComponent(resizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(aspectRatioChkBox))
               .addGroup(layout.createSequentialGroup()
                 .addComponent(saveLabel)
@@ -242,7 +266,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addComponent(saveLabel)
               .addComponent(saveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
               .addComponent(savePathButton)))
-          .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+          .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
         .addContainerGap())
     );
 
@@ -379,6 +403,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     }
   }//GEN-LAST:event_resizeBtnActionPerformed
+
+  private void wdtTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wdtTxtFieldActionPerformed
+    // TODO add your handling code here:
+  }//GEN-LAST:event_wdtTxtFieldActionPerformed
 
   /**
    * @param args the command line arguments
