@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import imagehandlers.ImageObject;
@@ -17,10 +12,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+
 /**
- *
- * @author aharris
+ * @author Anthony Harris
+ * @repository https://github.com/94aharris/MiniPicEditor
  */
+
 public class MiniPicGUI extends javax.swing.JFrame {
   
   ImagePool imagePool;
