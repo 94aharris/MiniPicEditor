@@ -34,7 +34,7 @@ public class ImagePool {
   // Image manipulation code utilized from 
   // http://www.javalobby.org/articles/ultimate-image/#1
   // Originally Written by Josiah Hester (Java Lobby)
-  public BufferedImage resizeImage(BufferedImage img, int newHeight, int newWidth) {
+  public BufferedImage resizeImage(BufferedImage img, int newWidth, int newHeight) {
     int oldWidth = img.getWidth();
     int oldHeight = img.getHeight();
     BufferedImage dimg = dimg = new BufferedImage(newWidth, newHeight, img.getType());
