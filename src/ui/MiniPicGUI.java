@@ -418,7 +418,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       BufferedImage newBimg = ((ImageObject)item).getImage();
       BufferedImage resizeImage;
       if (photoList.getSelectedIndices().length == 1) {
-        resizeImage = imagePool.resizeImage(newBimg, heightPx, widthPx);
+        resizeImage = imagePool.resizeImage(newBimg, widthPx, heightPx);
       }
       else {
         resizeImage = imagePool.resizeImage(newBimg, percentScale);
