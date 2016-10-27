@@ -352,6 +352,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
       public int getSize() { return strings.length; }
       public Object getElementAt(int i) { return strings[i]; }
     });
+    heightPx = 0;
+    widthPx = 0;
+    wdtSpinner.setValue(widthPx);
+    hgtSpinner.setValue(heightPx);
   }//GEN-LAST:event_clearListBtnActionPerformed
 
   private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
@@ -390,19 +394,25 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_photoListValueChanged
 
   private void percentSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_percentSpinnerStateChanged
+    if (rescaleInterrupt) {
+      return;
+    }
+    
+    rescaleInterrupt = true;
     if ((int)percentSpinner.getModel().getValue() < 100 && (int)percentSpinner.getModel().getValue() > 0) {
       percentScale = (int)percentSpinner.getModel().getValue();  
     }
     percentSpinner.setValue((int)percentScale);
     resizeSlider.setValue((int)percentScale);
     
-    if (photoList.getSelectedIndices().length == 1 && !rescaleInterrupt) {
+    if (photoList.getSelectedIndices().length == 1) {
       ImageObject selectedImage = (ImageObject) photoList.getSelectedValue();
       heightPx = (selectedImage.getHeight() * percentScale) / 100;
       widthPx = (selectedImage.getWidth() * percentScale) / 100;
       hgtSpinner.setValue(heightPx);
       wdtSpinner.setValue(widthPx);
     }
+    rescaleInterrupt = false;
   }//GEN-LAST:event_percentSpinnerStateChanged
   
   private void aspectRatioChkBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_aspectRatioChkBoxStateChanged
