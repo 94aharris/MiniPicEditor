@@ -103,6 +103,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     resizeSlider.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     resizeSlider.setValue(percentScale);
+    resizeSlider.setEnabled(false);
     resizeSlider.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         resizeSliderStateChanged(evt);
@@ -148,6 +149,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     percentSpinner.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+    percentSpinner.setEnabled(false);
     percentSpinner.setRequestFocusEnabled(false);
     percentSpinner.setValue(percentScale);
     percentSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -174,6 +176,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     hgtSpinner.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+    hgtSpinner.setEnabled(false);
     hgtSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         hgtSpinnerStateChanged(evt);
@@ -181,6 +184,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     wdtSpinner.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
+    wdtSpinner.setEnabled(false);
     wdtSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         wdtSpinnerStateChanged(evt);
@@ -322,7 +326,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     
     int result = fileChooser.showOpenDialog(fileChooser);
     if (result == JFileChooser.APPROVE_OPTION) {
-      
+      sizingEnabled(true);
       File [] selectedFiles = fileChooser.getSelectedFiles();
       try(Scanner sc = new Scanner(selectedFiles[0])) {
         imagePool.addImage(selectedFiles);
@@ -356,6 +360,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     widthPx = 0;
     wdtSpinner.setValue(widthPx);
     hgtSpinner.setValue(heightPx);
+    sizingEnabled(false);
   }//GEN-LAST:event_clearListBtnActionPerformed
 
   private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
@@ -484,7 +489,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
       rescaleInterrupt = false;
     }
   }//GEN-LAST:event_wdtSpinnerStateChanged
-
+  private void sizingEnabled(boolean option) {
+    wdtSpinner.setEnabled(option);
+    hgtSpinner.setEnabled(option);
+    resizeSlider.setEnabled(option);
+    percentSpinner.setEnabled(option);
+  }
   /**
    * @param args the command line arguments
    */
