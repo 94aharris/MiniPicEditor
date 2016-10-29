@@ -49,7 +49,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     photoScroll = new javax.swing.JScrollPane();
     photoList = new javax.swing.JList();
-    photoScrollLabel = new javax.swing.JLabel();
     saveLabel = new javax.swing.JLabel();
     saveTextField = new javax.swing.JTextField();
     savePathButton = new javax.swing.JButton();
@@ -69,10 +68,14 @@ public class MiniPicGUI extends javax.swing.JFrame {
     jDesktopPane1 = new javax.swing.JDesktopPane();
     hgtSpinner = new javax.swing.JSpinner();
     wdtSpinner = new javax.swing.JSpinner();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("MiniPic - LightWeight Photo Resize Tool");
+    setBackground(java.awt.Color.lightGray);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+    setForeground(java.awt.Color.lightGray);
 
     photoScroll.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
 
@@ -84,10 +87,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
     photoScroll.setViewportView(photoList);
 
-    photoScrollLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-    photoScrollLabel.setText("Imported Photos");
-
-    saveLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    saveLabel.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
     saveLabel.setText("Save To");
 
     saveTextField.setEditable(false);
@@ -113,13 +113,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
     resizeOptionsLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     resizeOptionsLabel.setText("Resize Image Options");
 
-    percLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    percLbl.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
     percLbl.setText("Percentage");
 
-    widthLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    widthLbl.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
     widthLbl.setText("Width");
 
-    heightLbl.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    heightLbl.setFont(new java.awt.Font("Arial", 0, 15)); // NOI18N
     heightLbl.setText("Height");
 
     percSigLbl.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
@@ -159,7 +159,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     importImagesBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-    importImagesBtn.setText("Import...");
+    importImagesBtn.setText("Import Images");
     importImagesBtn.setInheritsPopupMenu(true);
     importImagesBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     });
 
     clearListBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
-    clearListBtn.setText("Clear");
+    clearListBtn.setText("Clear Images");
     clearListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         clearListBtnActionPerformed(evt);
@@ -191,6 +191,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
+    jLabel1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    jLabel1.setText("Imported Images");
+
+    jLabel2.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    jLabel2.setText("Image Import / Export");
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
     layout.setHorizontalGroup(
@@ -201,61 +207,63 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(photoScroll))
+            .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
-            .addComponent(photoScrollLabel)
-            .addGap(6, 6, 6)
-            .addComponent(importImagesBtn)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(clearListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGap(0, 67, Short.MAX_VALUE)
+            .addComponent(jLabel1)
+            .addGap(0, 68, Short.MAX_VALUE)))
         .addGap(18, 18, 18)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(resizeSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 0, Short.MAX_VALUE)
-            .addComponent(resizeOptionsLabel))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(resizeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(aspectRatioChkBox))
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(saveLabel)
-                .addGap(40, 40, 40)
-                .addComponent(saveTextField))
-              .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(heightLbl)
-                  .addComponent(percLbl)
-                  .addComponent(widthLbl))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(percentSpinner)
-                  .addComponent(hgtSpinner)
-                  .addComponent(wdtSpinner))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                  .addComponent(hgtPxLbl)
-                  .addComponent(wdtPxLbl)
-                  .addComponent(percSigLbl))))
+            .addGap(12, 12, 12)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(heightLbl)
+              .addComponent(percLbl)
+              .addComponent(widthLbl))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(savePathButton)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(percentSpinner)
+              .addComponent(hgtSpinner)
+              .addComponent(wdtSpinner))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(hgtPxLbl)
+              .addComponent(wdtPxLbl)
+              .addComponent(percSigLbl))
+            .addGap(36, 36, 36))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(saveLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(saveTextField)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(savePathButton))
+          .addGroup(layout.createSequentialGroup()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(resizeOptionsLabel)
+              .addComponent(jLabel2))
+            .addGap(0, 0, Short.MAX_VALUE))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(importImagesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(clearListBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addComponent(aspectRatioChkBox)
+            .addGap(30, 30, 30)
+            .addComponent(resizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)))
         .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-        .addContainerGap()
+        .addGap(13, 13, 13)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-          .addComponent(photoScrollLabel)
           .addComponent(resizeOptionsLabel)
-          .addComponent(importImagesBtn)
-          .addComponent(clearListBtn))
+          .addComponent(jLabel1))
+        .addGap(8, 8, 8)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(photoScroll)
           .addGroup(layout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(layout.createSequentialGroup()
                 .addComponent(resizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,21 +288,24 @@ public class MiniPicGUI extends javax.swing.JFrame {
                     .addComponent(wdtPxLbl)
                     .addComponent(widthLbl))
                   .addComponent(wdtSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                  .addComponent(resizeBtn)
-                  .addComponent(aspectRatioChkBox))
+                  .addComponent(aspectRatioChkBox)
+                  .addComponent(resizeBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                  .addComponent(importImagesBtn)
+                  .addComponent(clearListBtn))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                   .addComponent(saveLabel)
                   .addComponent(saveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(savePathButton)))
-              .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE))
-            .addContainerGap())
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(117, 117, 117))))
+              .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 0, Short.MAX_VALUE)))
+        .addGap(33, 33, 33))
     );
 
     pack();
@@ -539,12 +550,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JSpinner hgtSpinner;
   private javax.swing.JButton importImagesBtn;
   private javax.swing.JDesktopPane jDesktopPane1;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
   private javax.swing.JLabel percLbl;
   private javax.swing.JLabel percSigLbl;
   private javax.swing.JSpinner percentSpinner;
   private javax.swing.JList photoList;
   private javax.swing.JScrollPane photoScroll;
-  private javax.swing.JLabel photoScrollLabel;
   private javax.swing.JButton resizeBtn;
   private javax.swing.JLabel resizeOptionsLabel;
   private javax.swing.JSlider resizeSlider;
