@@ -51,6 +51,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
   private void initComponents() {
 
+    editedPreviewDiag = new javax.swing.JDialog();
     photoScroll = new javax.swing.JScrollPane();
     photoList = new javax.swing.JList();
     saveLabel = new javax.swing.JLabel();
@@ -74,7 +75,19 @@ public class MiniPicGUI extends javax.swing.JFrame {
     wdtSpinner = new javax.swing.JSpinner();
     jLabel1 = new javax.swing.JLabel();
     jLabel2 = new javax.swing.JLabel();
-    previewPanel = new javax.swing.JPanel();
+    previewFrame = new javax.swing.JInternalFrame();
+    previewResizeBtn = new javax.swing.JButton();
+
+    javax.swing.GroupLayout editedPreviewDiagLayout = new javax.swing.GroupLayout(editedPreviewDiag.getContentPane());
+    editedPreviewDiag.getContentPane().setLayout(editedPreviewDiagLayout);
+    editedPreviewDiagLayout.setHorizontalGroup(
+      editedPreviewDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 400, Short.MAX_VALUE)
+    );
+    editedPreviewDiagLayout.setVerticalGroup(
+      editedPreviewDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 300, Short.MAX_VALUE)
+    );
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
     setTitle("MiniPic - LightWeight Photo Resize Tool");
@@ -202,18 +215,27 @@ public class MiniPicGUI extends javax.swing.JFrame {
     jLabel2.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     jLabel2.setText("Image Import / Export");
 
-    previewPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    previewFrame.setPreferredSize(new java.awt.Dimension(250, 250));
+    previewFrame.setVisible(true);
 
-    javax.swing.GroupLayout previewPanelLayout = new javax.swing.GroupLayout(previewPanel);
-    previewPanel.setLayout(previewPanelLayout);
-    previewPanelLayout.setHorizontalGroup(
-      previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 236, Short.MAX_VALUE)
+    javax.swing.GroupLayout previewFrameLayout = new javax.swing.GroupLayout(previewFrame.getContentPane());
+    previewFrame.getContentPane().setLayout(previewFrameLayout);
+    previewFrameLayout.setHorizontalGroup(
+      previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 239, Short.MAX_VALUE)
     );
-    previewPanelLayout.setVerticalGroup(
-      previewPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+    previewFrameLayout.setVerticalGroup(
+      previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 222, Short.MAX_VALUE)
     );
+
+    previewResizeBtn.setText("Preview Resized Image");
+    previewResizeBtn.setEnabled(false);
+    previewResizeBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        previewResizeBtnActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -225,7 +247,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE))
+            .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
             .addGap(0, 0, Short.MAX_VALUE)
             .addComponent(jLabel1)
@@ -263,34 +285,32 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
             .addComponent(aspectRatioChkBox)
             .addGap(30, 30, 30)
-            .addComponent(resizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(resizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(resizeOptionsLabel)
               .addComponent(jLabel2))
             .addGap(0, 0, Short.MAX_VALUE))
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addGap(0, 163, Short.MAX_VALUE)
-            .addComponent(previewPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(previewResizeBtn)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap())
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        .addGap(13, 13, 13)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addGap(13, 13, 13)
-            .addComponent(jLabel1)
-            .addGap(8, 8, 8)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-              .addComponent(photoScroll, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE)
-              .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))))
-          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-            .addContainerGap()
-            .addComponent(previewPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+              .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(previewResizeBtn)
+                .addGap(44, 44, 44)))
             .addComponent(resizeOptionsLabel)
             .addGap(8, 8, 8)
             .addComponent(resizeSlider, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +349,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(saveLabel)
               .addComponent(saveTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(savePathButton))))
+              .addComponent(savePathButton)))
+          .addGroup(layout.createSequentialGroup()
+            .addComponent(jLabel1)
+            .addGap(8, 8, 8)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(photoScroll)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)))))
         .addGap(33, 33, 33))
     );
 
@@ -415,6 +443,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private void photoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_photoListValueChanged
     resizeSlider.setValue(100);
     percentSpinner.setValue(100);
+    previewResizeBtn.setEnabled(false);
     
     int [] selectedImages = photoList.getSelectedIndices();
     if (selectedImages.length > 1) {
@@ -425,6 +454,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     }
     else if (selectedImages.length == 1) 
     {
+      previewResizeBtn.setEnabled(true);
       ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
       aspectRatioChkBox.getModel().setEnabled(true);
       aspectRatioChkBox.getModel().setPressed(true);
@@ -433,10 +463,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       wdtSpinner.setEnabled(true);
       wdtSpinner.setValue(selectedImage.getWidth());
       
-      // Trying to get the image to preview here
-      ImageIcon previewImage = new ImageIcon(selectedImage.getImage());
-      JLabel previewLabel = new JLabel("", previewImage, JLabel.CENTER);
-      previewPanel.add( previewLabel, BorderLayout.CENTER);
+      previewImage(selectedImage);
     }
     
   }//GEN-LAST:event_photoListValueChanged
@@ -532,11 +559,30 @@ public class MiniPicGUI extends javax.swing.JFrame {
       rescaleInterrupt = false;
     }
   }//GEN-LAST:event_wdtSpinnerStateChanged
+
+  private void previewResizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewResizeBtnActionPerformed
+    ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
+    BufferedImage previewImage = imagePool.resizeImage(selectedImage.getImage(), widthPx, heightPx);
+    editedPreviewDiag.getContentPane().removeAll();
+    editedPreviewDiag.getContentPane().setLayout(new BorderLayout());
+    editedPreviewDiag.getContentPane().add(new JLabel(new ImageIcon(previewImage)));
+    editedPreviewDiag.pack();
+    editedPreviewDiag.setVisible(true);
+  }//GEN-LAST:event_previewResizeBtnActionPerformed
+  
   private void sizingEnabled(boolean option) {
     wdtSpinner.setEnabled(option);
     hgtSpinner.setEnabled(option);
     resizeSlider.setEnabled(option);
     percentSpinner.setEnabled(option);
+  }
+  
+    private void previewImage(ImageObject selectedImage) {
+    previewFrame.getContentPane().removeAll();
+    previewFrame.getContentPane().setLayout(new BorderLayout());
+    previewFrame.getContentPane().add(new JLabel(new ImageIcon(selectedImage.getImage())));
+    previewFrame.pack();
+    previewFrame.setVisible(true);
   }
   /**
    * @param args the command line arguments
@@ -577,6 +623,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox aspectRatioChkBox;
   private javax.swing.JButton clearListBtn;
+  private javax.swing.JDialog editedPreviewDiag;
   private javax.swing.JLabel heightLbl;
   private javax.swing.JLabel hgtPxLbl;
   private javax.swing.JSpinner hgtSpinner;
@@ -589,7 +636,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JSpinner percentSpinner;
   private javax.swing.JList photoList;
   private javax.swing.JScrollPane photoScroll;
-  private javax.swing.JPanel previewPanel;
+  private javax.swing.JInternalFrame previewFrame;
+  private javax.swing.JButton previewResizeBtn;
   private javax.swing.JButton resizeBtn;
   private javax.swing.JLabel resizeOptionsLabel;
   private javax.swing.JSlider resizeSlider;
@@ -600,4 +648,5 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JSpinner wdtSpinner;
   private javax.swing.JLabel widthLbl;
   // End of variables declaration//GEN-END:variables
+
 }
