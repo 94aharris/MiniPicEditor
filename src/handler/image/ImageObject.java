@@ -1,4 +1,4 @@
-package imagehandlers;
+package handler.image;
 import java.awt.image.BufferedImage;
 
 /**

@@ -1,12 +1,12 @@
 package ui;
 
-import imagehandlers.ImageObject;
+import handler.image.ImageObject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import imagehandlers.ImagePool;
+import handler.image.ImagePool;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import handler.file.SaveType;
 
 
 /**
@@ -31,7 +32,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   int widthPx;
   boolean rescaleInterrupt;
   File saveLocation;
-  
+  SaveType selectedSave;
   
   public MiniPicGUI() {
     imagePool = new ImagePool();
@@ -40,6 +41,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     widthPx = 0;
     initComponents();
     rescaleInterrupt = false;
+    selectedSave = SaveType.NATIVE;
   }
 
   /**
@@ -227,7 +229,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.getContentPane().setLayout(previewFrameLayout);
     previewFrameLayout.setHorizontalGroup(
       previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 290, Short.MAX_VALUE)
     );
     previewFrameLayout.setVerticalGroup(
       previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +248,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
     saveOriginalBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     saveOriginalBtn.setSelected(true);
     saveOriginalBtn.setText("Original Format");
-    saveOriginalBtn.setEnabled(false);
     saveOriginalBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         saveOriginalBtnActionPerformed(evt);
@@ -256,12 +257,20 @@ public class MiniPicGUI extends javax.swing.JFrame {
     saveFormatBtnGroup.add(savePngBtn);
     savePngBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     savePngBtn.setText(".png");
-    savePngBtn.setEnabled(false);
+    savePngBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        savePngBtnActionPerformed(evt);
+      }
+    });
 
     saveFormatBtnGroup.add(saveJpgBtn);
     saveJpgBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     saveJpgBtn.setText(".jpg");
-    saveJpgBtn.setEnabled(false);
+    saveJpgBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        saveJpgBtnActionPerformed(evt);
+      }
+    });
 
     jLabel3.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     jLabel3.setText("Selected Image");
@@ -283,8 +292,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(previewFrame, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
-                  .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE))
+                  .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(photoScroll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
           .addGroup(layout.createSequentialGroup()
             .addGap(111, 111, 111)
@@ -536,9 +545,17 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_aspectRatioChkBoxStateChanged
 
   private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
+    
     if (photoList.getSelectedIndices().length == 0) {
       JOptionPane.showMessageDialog(null, "Please Select A Photo", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
     }
+    
+    if (heightPx == 0 || widthPx == 0) {
+      JOptionPane.showMessageDialog(null, "Height and Width must be greater than 0", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    
     for (Object item : photoList.getSelectedValuesList()) {
       BufferedImage newBimg = ((ImageObject)item).getImage();
       BufferedImage resizeImage;
@@ -549,11 +566,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
         resizeImage = imagePool.resizeImage(newBimg, percentScale);
       }
       try {
-        imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString());
+        imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString(), selectedSave);
         JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved", "Success", JOptionPane.PLAIN_MESSAGE);
       } catch (NullPointerException e) {
         JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
-      }  
+      } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error during file saving", "File Save Error/n" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
+      }
     }
   }//GEN-LAST:event_resizeBtnActionPerformed
 
@@ -611,8 +630,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_previewResizeBtnActionPerformed
 
   private void saveOriginalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveOriginalBtnActionPerformed
-    // TODO add your handling code here:
+    selectedSave = SaveType.NATIVE;
   }//GEN-LAST:event_saveOriginalBtnActionPerformed
+
+  private void savePngBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePngBtnActionPerformed
+    selectedSave = SaveType.PNG;
+  }//GEN-LAST:event_savePngBtnActionPerformed
+
+  private void saveJpgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJpgBtnActionPerformed
+    selectedSave = SaveType.JPEG;
+  }//GEN-LAST:event_saveJpgBtnActionPerformed
   
   private void sizingEnabled(boolean option) {
     wdtSpinner.setEnabled(option);
@@ -621,7 +648,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     percentSpinner.setEnabled(option);
   }
   
-    private void previewImage(ImageObject selectedImage) {
+  private void previewImage(ImageObject selectedImage) {
     previewFrame.getContentPane().removeAll();
     previewFrame.getContentPane().setLayout(new BorderLayout());
     previewFrame.getContentPane().add(new JLabel(new ImageIcon(selectedImage.getImage())));

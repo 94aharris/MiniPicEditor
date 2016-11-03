@@ -1,4 +1,4 @@
-package imagehandlers;
+package handler.image;
 
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import handler.file.SaveType;
 
 /**
  * @author Anthony Harris
@@ -15,7 +16,6 @@ import javax.imageio.ImageIO;
 
 public class ImagePool {
   ArrayList <ImageObject> images;
-  
   public ImagePool() {
     images = new ArrayList<>();
   }
@@ -51,14 +51,22 @@ public class ImagePool {
     return resizeImage(img, newWidth, newHeight);
   }
   
-  public void saveImage(BufferedImage img, String saveLocation, String fileName) {
-    try {
-      String format = (fileName.endsWith(".png")) ? "png" : "jpg";
-      String[] splits = fileName.split( "\\." );
-      fileName = splits[0] + "_resized." + format;
-      ImageIO.write(img, format, new File(saveLocation + "/" + fileName));
-    } catch (IOException e) {
-      e.printStackTrace();
+  public void saveImage(BufferedImage img, String saveLocation, String fileName, SaveType saveFormat) throws IOException {
+    String extension = "";
+    switch(saveFormat) {
+      case NATIVE : extension = (fileName.endsWith(".png")) ? "png" : "jpg";
+        break;
+      case PNG : extension = "png";
+        break;
+      case JPEG : extension = "jpg";
     }
+    
+    String[] splits = fileName.split("\\.");
+    fileName = splits[0] + "_edited." + extension;
+    ImageIO.write(img, extension, new File(saveLocation + "/" + fileName));
+  }
+  
+  public void saveImage(BufferedImage img, String saveLocation, String fileName) throws IOException {
+    saveImage(img, saveLocation, fileName, SaveType.NATIVE);
   }
 }
