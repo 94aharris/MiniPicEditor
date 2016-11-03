@@ -2,7 +2,7 @@ MiniPicEditor
 
 Author: Anthony Harris
 
-Readme Date Updated: 10/20/2016
+Readme Date Updated: 11/03/2016
 
 Repository: https://github.com/94aharris/MiniPicEditor.git
 
