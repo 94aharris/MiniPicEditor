@@ -72,18 +72,18 @@ public class MiniPicGUI extends javax.swing.JFrame {
     percentSpinner = new javax.swing.JSpinner();
     importImagesBtn = new javax.swing.JButton();
     clearListBtn = new javax.swing.JButton();
-    jDesktopPane1 = new javax.swing.JDesktopPane();
     hgtSpinner = new javax.swing.JSpinner();
     wdtSpinner = new javax.swing.JSpinner();
-    jLabel1 = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
+    importedLabel = new javax.swing.JLabel();
+    exportLabel = new javax.swing.JLabel();
     previewFrame = new javax.swing.JInternalFrame();
     previewResizeBtn = new javax.swing.JButton();
     saveOriginalBtn = new javax.swing.JRadioButton();
     savePngBtn = new javax.swing.JRadioButton();
     saveJpgBtn = new javax.swing.JRadioButton();
-    jLabel3 = new javax.swing.JLabel();
-    jLabel4 = new javax.swing.JLabel();
+    selectedLabel = new javax.swing.JLabel();
+    cropLabel = new javax.swing.JLabel();
+    cropPanel = new javax.swing.JPanel();
 
     javax.swing.GroupLayout editedPreviewDiagLayout = new javax.swing.GroupLayout(editedPreviewDiag.getContentPane());
     editedPreviewDiag.getContentPane().setLayout(editedPreviewDiagLayout);
@@ -216,11 +216,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    jLabel1.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-    jLabel1.setText("Imported Images");
+    importedLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    importedLabel.setText("Imported Images");
 
-    jLabel2.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-    jLabel2.setText("Image Import / Export");
+    exportLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    exportLabel.setText("Image Import / Export");
 
     previewFrame.setPreferredSize(new java.awt.Dimension(250, 250));
     previewFrame.setVisible(true);
@@ -272,11 +272,24 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    jLabel3.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-    jLabel3.setText("Selected Image");
+    selectedLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    selectedLabel.setText("Selected Image");
 
-    jLabel4.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
-    jLabel4.setText("Crop Image");
+    cropLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
+    cropLabel.setText("Crop Image");
+
+    cropPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+    javax.swing.GroupLayout cropPanelLayout = new javax.swing.GroupLayout(cropPanel);
+    cropPanel.setLayout(cropPanelLayout);
+    cropPanelLayout.setHorizontalGroup(
+      cropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 258, Short.MAX_VALUE)
+    );
+    cropPanelLayout.setVerticalGroup(
+      cropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 0, Short.MAX_VALUE)
+    );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -284,23 +297,20 @@ public class MiniPicGUI extends javax.swing.JFrame {
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(layout.createSequentialGroup()
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addGroup(layout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(114, 114, 114))
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                  .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
-                  .addComponent(photoScroll))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE))))
+          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+              .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(importedLabel)
+              .addGap(114, 114, 114))
+            .addGroup(layout.createSequentialGroup()
+              .addGap(19, 19, 19)
+              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(photoScroll))
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)))
           .addGroup(layout.createSequentialGroup()
             .addGap(111, 111, 111)
-            .addComponent(jLabel3)
+            .addComponent(selectedLabel)
             .addGap(100, 100, 100)))
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(resizeSlider, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -339,14 +349,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(aspectRatioChkBox)
               .addComponent(resizeOptionsLabel)
-              .addComponent(jLabel2)
+              .addComponent(exportLabel)
               .addGroup(layout.createSequentialGroup()
                 .addComponent(saveOriginalBtn)
                 .addGap(18, 18, 18)
                 .addComponent(savePngBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveJpgBtn))
-              .addComponent(jLabel4))
+              .addComponent(cropLabel)
+              .addComponent(cropPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(0, 0, Short.MAX_VALUE)))
         .addContainerGap())
     );
@@ -356,15 +367,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
         .addGap(13, 13, 13)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(layout.createSequentialGroup()
-            .addComponent(jLabel1)
+            .addComponent(importedLabel)
             .addGap(8, 8, 8)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addGroup(layout.createSequentialGroup()
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-              .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE))
+            .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
             .addGap(19, 19, 19)
-            .addComponent(jLabel3)
+            .addComponent(selectedLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -399,9 +406,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addComponent(previewResizeBtn)
               .addComponent(resizeBtn))
             .addGap(18, 18, 18)
-            .addComponent(jLabel4)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel2)
+            .addComponent(cropLabel)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(cropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(exportLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(importImagesBtn)
@@ -706,16 +715,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox aspectRatioChkBox;
   private javax.swing.JButton clearListBtn;
+  private javax.swing.JLabel cropLabel;
+  private javax.swing.JPanel cropPanel;
   private javax.swing.JDialog editedPreviewDiag;
+  private javax.swing.JLabel exportLabel;
   private javax.swing.JLabel heightLbl;
   private javax.swing.JLabel hgtPxLbl;
   private javax.swing.JSpinner hgtSpinner;
   private javax.swing.JButton importImagesBtn;
-  private javax.swing.JDesktopPane jDesktopPane1;
-  private javax.swing.JLabel jLabel1;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel importedLabel;
   private javax.swing.JLabel percLbl;
   private javax.swing.JLabel percSigLbl;
   private javax.swing.JSpinner percentSpinner;
@@ -733,6 +741,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JButton savePathButton;
   private javax.swing.JRadioButton savePngBtn;
   private javax.swing.JTextField saveTextField;
+  private javax.swing.JLabel selectedLabel;
   private javax.swing.JLabel wdtPxLbl;
   private javax.swing.JSpinner wdtSpinner;
   private javax.swing.JLabel widthLbl;
