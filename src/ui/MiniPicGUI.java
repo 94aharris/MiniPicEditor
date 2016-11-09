@@ -41,6 +41,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     initComponents();
     rescaleInterrupt = false;
     selectedSave = SaveType.NATIVE;
+    CropPanel cropPanel = new CropPanel();
+    cropPanel.setSize(200, 200);
+    cropFrame.add(cropPanel);
+    cropFrame.pack();
+    cropFrame.validate();
   }
 
   /**
@@ -83,7 +88,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     saveJpgBtn = new javax.swing.JRadioButton();
     selectedLabel = new javax.swing.JLabel();
     cropLabel = new javax.swing.JLabel();
-    cropPanel = new javax.swing.JPanel();
+    cropFrame = new javax.swing.JInternalFrame();
 
     javax.swing.GroupLayout editedPreviewDiagLayout = new javax.swing.GroupLayout(editedPreviewDiag.getContentPane());
     editedPreviewDiag.getContentPane().setLayout(editedPreviewDiagLayout);
@@ -278,16 +283,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     cropLabel.setText("Crop Image");
 
-    cropPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+    cropFrame.setVisible(true);
 
-    javax.swing.GroupLayout cropPanelLayout = new javax.swing.GroupLayout(cropPanel);
-    cropPanel.setLayout(cropPanelLayout);
-    cropPanelLayout.setHorizontalGroup(
-      cropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 258, Short.MAX_VALUE)
+    javax.swing.GroupLayout cropFrameLayout = new javax.swing.GroupLayout(cropFrame.getContentPane());
+    cropFrame.getContentPane().setLayout(cropFrameLayout);
+    cropFrameLayout.setHorizontalGroup(
+      cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 259, Short.MAX_VALUE)
     );
-    cropPanelLayout.setVerticalGroup(
-      cropPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    cropFrameLayout.setVerticalGroup(
+      cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGap(0, 0, Short.MAX_VALUE)
     );
 
@@ -357,7 +362,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(saveJpgBtn))
               .addComponent(cropLabel)
-              .addComponent(cropPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(cropFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(0, 0, Short.MAX_VALUE)))
         .addContainerGap())
     );
@@ -408,7 +413,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addComponent(cropLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(cropPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(cropFrame)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(exportLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -672,6 +677,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.getContentPane().add(new JLabel(new ImageIcon(selectedImage.getImage())));
     previewFrame.pack();
     previewFrame.setVisible(true);
+    
+    CropPanel cropPanel = new CropPanel(selectedImage.getImage());
+    cropPanel.setSize(200, 200);
+    cropFrame.removeAll();
+    cropFrame.add(cropPanel);
+    cropFrame.pack();
+    cropFrame.validate();
   }
   
   
@@ -715,8 +727,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JCheckBox aspectRatioChkBox;
   private javax.swing.JButton clearListBtn;
+  private javax.swing.JInternalFrame cropFrame;
   private javax.swing.JLabel cropLabel;
-  private javax.swing.JPanel cropPanel;
   private javax.swing.JDialog editedPreviewDiag;
   private javax.swing.JLabel exportLabel;
   private javax.swing.JLabel heightLbl;

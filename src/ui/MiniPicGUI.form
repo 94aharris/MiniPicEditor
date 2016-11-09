@@ -128,7 +128,7 @@
                               <Component id="saveJpgBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="cropLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="cropPanel" min="-2" max="-2" attributes="0"/>
+                          <Component id="cropFrame" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -194,7 +194,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="cropLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="cropPanel" max="32767" attributes="0"/>
+                      <Component id="cropFrame" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="exportLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -533,19 +533,15 @@
         <Property name="text" type="java.lang.String" value="Crop Image"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="cropPanel">
+    <Container class="javax.swing.JInternalFrame" name="cropFrame">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
-            <EtchetBorder/>
-          </Border>
-        </Property>
+        <Property name="visible" type="boolean" value="true"/>
       </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="258" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="259" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
