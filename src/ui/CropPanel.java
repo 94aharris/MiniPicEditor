@@ -21,48 +21,45 @@ import javax.swing.JPanel;
  * @author aharris
  */
 public class CropPanel extends JPanel{
-private static final int PREF_W = 600;
-   private static final int PREF_H = 400;
-   private static final Color DRAWING_COLOR = new Color(255, 100, 200);
-   private static final Color FINAL_DRAWING_COLOR = Color.red;
+//private static final int PREF_W = 600;
+   //private static final int PREF_H = 400;
+   //private static final Color DRAWING_COLOR = new Color(255, 100, 200);
+   //private static final Color FINAL_DRAWING_COLOR = Color.red;
 
    private BufferedImage backgroundImg;
-   private Point startPt = null;
-   private Point endPt = null;
-   private Point currentPt = null;
+   //private Point startPt = null;
+   //private Point endPt = null;
+   //private Point currentPt = null;
 
    public CropPanel() {
-      this(new BufferedImage(PREF_W, PREF_H, BufferedImage.TYPE_INT_ARGB));
+      //this(new BufferedImage(PREF_W, PREF_H, BufferedImage.TYPE_INT_ARGB));
    }
    
    public CropPanel(BufferedImage image) {
      backgroundImg = image;
-     Graphics g = backgroundImg.getGraphics();
-      g.fillRect(0, 0, PREF_W, PREF_H);
-      g.dispose();
+     //Graphics g = backgroundImg.getGraphics();
+     //g.dispose();
 
-      MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
-      addMouseMotionListener(myMouseAdapter);
-      addMouseListener(myMouseAdapter);
+      //MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
+      //addMouseMotionListener(myMouseAdapter);
+      //addMouseListener(myMouseAdapter);
    }
 
    @Override
    protected void paintComponent(Graphics g) {
       super.paintComponent(g);
-      if (backgroundImg != null) {
-         g.drawImage(backgroundImg, 0, 0, this);
-      }
+      g.drawImage(backgroundImg, 0, 0, this);
 
-      if (startPt != null && currentPt != null) {
-         g.setColor(DRAWING_COLOR);
-         int x = Math.min(startPt.x, currentPt.x);
-         int y = Math.min(startPt.y, currentPt.y);
-         int width = Math.abs(startPt.x - currentPt.x);
-         int height = Math.abs(startPt.y - currentPt.y);
-         g.drawRect(x, y, width, height);
-      }
+      //if (startPt != null && currentPt != null) {
+      //   int x = Math.min(startPt.x, currentPt.x);
+      //   int y = Math.min(startPt.y, currentPt.y);
+      //   int width = Math.abs(startPt.x - currentPt.x);
+      //   int height = Math.abs(startPt.y - currentPt.y);
+      //   g.drawRect(x, y, width, height);
+      //}
    }
-
+   
+   /**
    @Override
    public Dimension getPreferredSize() {
       return new Dimension(PREF_W, PREF_H);
@@ -70,7 +67,6 @@ private static final int PREF_W = 600;
 
    public void drawToBackground() {
       Graphics g = backgroundImg.getGraphics();
-      g.setColor(FINAL_DRAWING_COLOR);
       int x = Math.min(startPt.x, endPt.x);
       int y = Math.min(startPt.y, endPt.y);
       int width = Math.abs(startPt.x - endPt.x);
@@ -93,7 +89,7 @@ private static final int PREF_W = 600;
       public void mouseReleased(MouseEvent mEvt) {
          endPt = mEvt.getPoint();
          currentPt = null;
-         drawToBackground();
+         //drawToBackground();
       }
 
       @Override
@@ -101,4 +97,5 @@ private static final int PREF_W = 600;
          startPt = mEvt.getPoint();
       }
    }
+   **/
 }

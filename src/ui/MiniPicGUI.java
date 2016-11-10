@@ -679,9 +679,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.setVisible(true);
     
     CropPanel cropPanel = new CropPanel(selectedImage.getImage());
-    cropPanel.setSize(200, 200);
-    cropFrame.removeAll();
-    cropFrame.add(cropPanel);
+    cropFrame.setContentPane(cropPanel);
+    cropFrame.getContentPane().setBounds(0, 0, 200, 200);
     cropFrame.pack();
     cropFrame.validate();
   }
