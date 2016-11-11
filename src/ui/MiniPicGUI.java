@@ -42,7 +42,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     rescaleInterrupt = false;
     selectedSave = SaveType.NATIVE;
     CropPanel cropPanel = new CropPanel();
-    cropPanel.setSize(200, 200);
+    cropPanel.setSize(250, 200);
     cropFrame.add(cropPanel);
     cropFrame.pack();
     cropFrame.validate();
@@ -283,13 +283,16 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     cropLabel.setText("Crop Image");
 
+    cropFrame.setFocusable(false);
+    cropFrame.setMaximumSize(new java.awt.Dimension(200, 200));
+    cropFrame.setMinimumSize(new java.awt.Dimension(200, 200));
     cropFrame.setVisible(true);
 
     javax.swing.GroupLayout cropFrameLayout = new javax.swing.GroupLayout(cropFrame.getContentPane());
     cropFrame.getContentPane().setLayout(cropFrameLayout);
     cropFrameLayout.setHorizontalGroup(
       cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 259, Short.MAX_VALUE)
+      .addGap(0, 234, Short.MAX_VALUE)
     );
     cropFrameLayout.setVerticalGroup(
       cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -374,7 +377,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(importedLabel)
             .addGap(8, 8, 8)
-            .addComponent(photoScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+            .addComponent(photoScroll)
             .addGap(19, 19, 19)
             .addComponent(selectedLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -413,8 +416,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addComponent(cropLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(cropFrame)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(cropFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(18, 18, 18)
             .addComponent(exportLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -679,9 +682,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.setVisible(true);
     
     CropPanel cropPanel = new CropPanel(selectedImage.getImage());
-    cropFrame.setContentPane(cropPanel);
-    cropFrame.getContentPane().setBounds(0, 0, 200, 200);
-    cropFrame.pack();
+    cropPanel.setSize(250, 200);
+    cropFrame.getContentPane().removeAll();
+    cropFrame.getContentPane().setLayout(new BorderLayout());
+    cropFrame.getContentPane().add(BorderLayout.CENTER, cropPanel);
     cropFrame.validate();
   }
   

@@ -37,7 +37,7 @@ public class ImagePool {
   public BufferedImage resizeImage(BufferedImage img, int newWidth, int newHeight) {
     int oldWidth = img.getWidth();
     int oldHeight = img.getHeight();
-    BufferedImage dimg = dimg = new BufferedImage(newWidth, newHeight, img.getType());
+    BufferedImage dimg = new BufferedImage(newWidth, newHeight, img.getType());
     Graphics2D g = dimg.createGraphics();  
     g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
     g.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, oldWidth, oldHeight, null);  
