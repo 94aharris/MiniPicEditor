@@ -283,20 +283,22 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropLabel.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
     cropLabel.setText("Crop Image");
 
+    cropFrame.setFocusCycleRoot(false);
     cropFrame.setFocusable(false);
-    cropFrame.setMaximumSize(new java.awt.Dimension(200, 200));
-    cropFrame.setMinimumSize(new java.awt.Dimension(200, 200));
+    cropFrame.setMaximumSize(new java.awt.Dimension(250, 200));
+    cropFrame.setMinimumSize(new java.awt.Dimension(250, 200));
+    cropFrame.setRequestFocusEnabled(false);
     cropFrame.setVisible(true);
 
     javax.swing.GroupLayout cropFrameLayout = new javax.swing.GroupLayout(cropFrame.getContentPane());
     cropFrame.getContentPane().setLayout(cropFrameLayout);
     cropFrameLayout.setHorizontalGroup(
       cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 234, Short.MAX_VALUE)
+      .addGap(0, 252, Short.MAX_VALUE)
     );
     cropFrameLayout.setVerticalGroup(
       cropFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 178, Short.MAX_VALUE)
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,7 +317,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(photoScroll))
-              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)))
+              .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
           .addGroup(layout.createSequentialGroup()
             .addGap(111, 111, 111)
             .addComponent(selectedLabel)
@@ -342,7 +344,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addGroup(layout.createSequentialGroup()
             .addComponent(previewResizeBtn)
             .addGap(15, 15, 15)
-            .addComponent(resizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE))
+            .addComponent(resizeBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
           .addGroup(layout.createSequentialGroup()
             .addComponent(saveLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -416,8 +418,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addComponent(cropLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(cropFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGap(18, 18, 18)
+            .addComponent(cropFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(exportLabel)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -682,11 +684,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.setVisible(true);
     
     CropPanel cropPanel = new CropPanel(selectedImage.getImage());
-    cropPanel.setSize(250, 200);
+    cropPanel.setSize(300, 250);
     cropFrame.getContentPane().removeAll();
-    cropFrame.getContentPane().setLayout(new BorderLayout());
-    cropFrame.getContentPane().add(BorderLayout.CENTER, cropPanel);
+    //cropFrame.getContentPane().setLayout(new BorderLayout());
+    //cropFrame.getContentPane().add(BorderLayout.CENTER, cropPanel);
+    cropFrame.setContentPane(cropPanel);
+    cropFrame.pack();
     cropFrame.validate();
+    System.out.println("Height: " + cropFrame.getHeight());
+    System.out.println("Width: " + cropFrame.getWidth());
   }
   
   
