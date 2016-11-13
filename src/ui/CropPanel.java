@@ -37,10 +37,10 @@ public class CropPanel extends JPanel{
    }
    
    public CropPanel(BufferedImage image) {
-    backgroundImg = new BufferedImage(150, 150, image.getType());
+    backgroundImg = new BufferedImage(200, 200, image.getType());
     Graphics2D g = backgroundImg.createGraphics();  
     g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
-    g.drawImage(image, 0, 0, 150, 150, 0, 0, image.getWidth(), image.getHeight(), null);  
+    g.drawImage(image, 0, 0, 200, 200, 0, 0, image.getWidth(), image.getHeight(), null);
     g.dispose();
 
       MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
