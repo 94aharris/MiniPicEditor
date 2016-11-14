@@ -23,7 +23,7 @@ import javax.swing.JPanel;
  * @author aharris
  */
 public class CropPanel extends JPanel{
-  private static final int PREF_W = 250;
+  private static final int PREF_W = 200;
   private static final int PREF_H = 200;
   private static final Color DRAWING_COLOR = new Color(255, 100, 200);
   private static final Color FINAL_DRAWING_COLOR = Color.red;
@@ -72,11 +72,13 @@ public class CropPanel extends JPanel{
 
    public void drawToBackground() {
       Graphics g = backgroundImg.getGraphics();
-      int x = Math.min(startPt.x, endPt.x);
-      int y = Math.min(startPt.y, endPt.y);
-      int width = Math.abs(startPt.x - endPt.x);
-      int height = Math.abs(startPt.y - endPt.y);
-      g.drawRect(x, y, width, height);
+      if ((startPt.x > 0 && startPt.y > 0) && (endPt.x < 250 && endPt.y < 250)) {
+        int x = Math.min(startPt.x, endPt.x);
+        int y = Math.min(startPt.y, endPt.y);
+        int width = Math.abs(startPt.x - endPt.x);
+        int height = Math.abs(startPt.y - endPt.y);
+        g.drawRect(x, y, width, height); 
+      }
       g.dispose();
 
       startPt = null;
