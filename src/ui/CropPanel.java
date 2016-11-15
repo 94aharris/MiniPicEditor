@@ -28,6 +28,7 @@ public class CropPanel extends JPanel{
   private static final Color DRAWING_COLOR = new Color(255, 100, 200);
   private static final Color FINAL_DRAWING_COLOR = Color.red;
    BufferedImage backgroundImg;
+   BufferedImage rawImage;
    private Point startPt = null;
    private Point endPt = null;
    private Point currentPt = null;
@@ -37,6 +38,7 @@ public class CropPanel extends JPanel{
    }
    
    public CropPanel(BufferedImage image) {
+    rawImage = image;
     backgroundImg = new BufferedImage(200, 200, image.getType());
     Graphics2D g = backgroundImg.createGraphics();  
     g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
@@ -83,6 +85,32 @@ public class CropPanel extends JPanel{
 
       startPt = null;
       repaint();
+   }
+   
+   public BufferedImage getCroppedImage() {
+     //if (rawImage == null || startPt == null) {
+     //  return null;
+     //}
+     int drawnX = Math.min(startPt.x, endPt.x);
+     int drawnY = Math.min(startPt.y, endPt.y);
+     int drawnWidth = Math.abs(startPt.x - endPt.x);
+     int drawnHeight = Math.abs(startPt.y - endPt.y);
+     
+     double ratioX = rawImage.getWidth() / backgroundImg.getWidth();
+     double ratioY = rawImage.getHeight() / backgroundImg.getHeight();
+     
+     int trueX = (int)(drawnX * ratioX);
+     int trueY = (int)(drawnY * ratioY);
+     int trueWidth = (int)(drawnWidth * ratioX);
+     int trueHeight = (int)(drawnHeight * ratioY);
+     
+     BufferedImage subImg = rawImage.getSubimage(trueX, trueY, trueWidth, trueHeight);
+     BufferedImage returnImage = new BufferedImage(subImg.getWidth(), subImg.getHeight(), BufferedImage.TYPE_INT_ARGB);
+     Graphics g = returnImage.createGraphics();
+     g.drawImage(returnImage, 0, 0, null);
+     System.out.println("Cropping");
+     return returnImage; // This is returning a grey image right now... investigate the graphics handling
+     // return subImg; -- This will return an image but it is not properly focuesed
    }
    
    private class MyMouseAdapter extends MouseAdapter {
