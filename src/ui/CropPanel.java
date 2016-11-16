@@ -96,21 +96,18 @@ public class CropPanel extends JPanel{
      int drawnWidth = Math.abs(startPt.x - endPt.x);
      int drawnHeight = Math.abs(startPt.y - endPt.y);
      
-     double ratioX = rawImage.getWidth() / backgroundImg.getWidth();
-     double ratioY = rawImage.getHeight() / backgroundImg.getHeight();
+     double ratioX = rawImage.getWidth() / (double)backgroundImg.getWidth();
+     double ratioY = rawImage.getHeight() / (double)backgroundImg.getHeight();
      
      int trueX = (int)(drawnX * ratioX);
      int trueY = (int)(drawnY * ratioY);
      int trueWidth = (int)(drawnWidth * ratioX);
      int trueHeight = (int)(drawnHeight * ratioY);
-     
      BufferedImage subImg = rawImage.getSubimage(trueX, trueY, trueWidth, trueHeight);
      BufferedImage returnImage = new BufferedImage(subImg.getWidth(), subImg.getHeight(), BufferedImage.TYPE_INT_ARGB);
-     Graphics g = returnImage.createGraphics();
-     g.drawImage(returnImage, 0, 0, null);
-     System.out.println("Cropping");
-     return returnImage; // This is returning a grey image right now... investigate the graphics handling
-     // return subImg; -- This will return an image but it is not properly focuesed
+     Graphics g = returnImage.createGraphics();  
+     g.drawImage(subImg, 0, 0, null);
+     return returnImage; 
    }
    
    private class MyMouseAdapter extends MouseAdapter {
