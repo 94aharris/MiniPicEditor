@@ -23,8 +23,8 @@ import javax.swing.JPanel;
  * @author aharris
  */
 public class CropPanel extends JPanel{
-  private static final int PREF_W = 200;
-  private static final int PREF_H = 200;
+  private static int prefW = 200;
+  private static int prefH = 200;
   private static final Color DRAWING_COLOR = new Color(255, 100, 200);
   private static final Color FINAL_DRAWING_COLOR = Color.red;
    BufferedImage backgroundImg;
@@ -34,15 +34,17 @@ public class CropPanel extends JPanel{
    private Point currentPt = null;
 
    public CropPanel() {
-      this(new BufferedImage(PREF_W, PREF_H, BufferedImage.TYPE_INT_ARGB));
+      this(new BufferedImage(prefW, prefH, BufferedImage.TYPE_INT_ARGB));
    }
    
    public CropPanel(BufferedImage image) {
     rawImage = image;
-    backgroundImg = new BufferedImage(200, 200, image.getType());
+    prefW = image.getWidth();
+    prefH = image.getHeight();
+    backgroundImg = new BufferedImage(prefW, prefH, image.getType());
     Graphics2D g = backgroundImg.createGraphics();  
     g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
-    g.drawImage(image, 0, 0, 200, 200, 0, 0, image.getWidth(), image.getHeight(), null);
+    g.drawImage(image, 0, 0, prefW, prefH, 0, 0, image.getWidth(), image.getHeight(), null);
     g.dispose();
 
       MyMouseAdapter myMouseAdapter = new MyMouseAdapter();
@@ -68,7 +70,7 @@ public class CropPanel extends JPanel{
 
    @Override
    public Dimension getPreferredSize() {
-      return new Dimension(PREF_W, PREF_H);
+      return new Dimension(prefW, prefH);
    }
    
 
