@@ -59,6 +59,9 @@
             <Property name="actionCommand" type="java.lang.String" value="Accept Crop"/>
             <Property name="label" type="java.lang.String" value="Accept Crop"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="acceptCropBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="java.awt.Button" name="cancelCropBtn">
           <Properties>
@@ -88,6 +91,8 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -101,6 +106,7 @@
     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="c0" green="c0" id="lightGray" palette="1" red="c0" type="palette"/>
     </Property>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -121,151 +127,148 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="importedLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                      <Component id="photoScroll" min="-2" pref="301" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="resizeSlider" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="heightLbl" min="-2" max="-2" attributes="0"/>
                           <Component id="percLbl" min="-2" max="-2" attributes="0"/>
                           <Component id="widthLbl" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="percentSpinner" max="32767" attributes="0"/>
-                          <Component id="hgtSpinner" alignment="0" max="32767" attributes="0"/>
-                          <Component id="wdtSpinner" alignment="0" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="percentSpinner" alignment="1" max="32767" attributes="0"/>
+                          <Component id="hgtSpinner" alignment="1" max="32767" attributes="0"/>
+                          <Component id="wdtSpinner" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="hgtPxLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="wdtPxLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="percSigLbl" min="-2" max="-2" attributes="0"/>
+                          <Component id="hgtPxLbl" min="-2" max="-2" attributes="0"/>
+                          <Component id="wdtPxLbl" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="346" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="previewResizeBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Component id="resizeBtn" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="photoScroll" alignment="0" min="-2" pref="301" max="-2" attributes="0"/>
+                          <Component id="importedLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="importImagesBtn" min="-2" pref="128" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="clearListBtn" min="-2" pref="146" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="resizeSlider" alignment="0" min="-2" pref="292" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="aspectRatioChkBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="previewResizeBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="resizeOptionsLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="saveOriginalBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="savePngBtn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="saveJpgBtn" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="saveLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="saveTextField" min="-2" pref="201" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="savePathButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="selectedLabel" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="getCropBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="resizeBtn" min="-2" pref="133" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="previewFrame" min="-2" pref="301" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="17" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="saveLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="saveTextField" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="savePathButton" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="importImagesBtn" max="32767" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="clearListBtn" max="32767" attributes="0"/>
-                  </Group>
-                  <Component id="aspectRatioChkBox" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="resizeOptionsLabel" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="saveOriginalBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="savePngBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="saveJpgBtn" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="exportLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
-                      <Component id="getCropBtn" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="selectedLabel" min="-2" max="-2" attributes="0"/>
-                  <Component id="previewFrame" min="-2" pref="301" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="importedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="selectedLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="photoScroll" min="-2" pref="236" max="-2" attributes="0"/>
+                  <Component id="previewFrame" min="-2" pref="244" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="importedLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                      <Component id="photoScroll" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="287" max="-2" attributes="0"/>
+                  <Component id="importImagesBtn" min="-2" max="-2" attributes="0"/>
+                  <Component id="clearListBtn" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="getCropBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="resizeBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <Component id="resizeOptionsLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="resizeOptionsLabel" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="resizeSlider" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="percLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="percentSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="percSigLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="percLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="percentSpinner" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="heightLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="hgtPxLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="heightLbl" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="hgtSpinner" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="hgtSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="hgtPxLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="wdtPxLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="widthLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="widthLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="wdtSpinner" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                      <Component id="aspectRatioChkBox" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="previewResizeBtn" min="-2" max="-2" attributes="0"/>
-                          <Component id="resizeBtn" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="selectedLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="previewFrame" min="-2" pref="244" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                      <Component id="getCropBtn" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="exportLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="importImagesBtn" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="clearListBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="wdtPxLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="saveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="aspectRatioChkBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="previewResizeBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="saveTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="saveLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="savePathButton" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="saveOriginalBtn" alignment="3" min="-2" pref="15" max="-2" attributes="0"/>
                           <Component id="savePngBtn" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -273,7 +276,7 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -407,7 +410,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="13" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Resize"/>
+        <Property name="text" type="java.lang.String" value="Resize and Save"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resizeBtnActionPerformed"/>
@@ -491,14 +494,6 @@
           <Font name="Arial" size="15" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Imported Images"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="exportLabel">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Arial" size="15" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Image Import / Export"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JInternalFrame" name="previewFrame">

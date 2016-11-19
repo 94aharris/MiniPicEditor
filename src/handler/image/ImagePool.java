@@ -27,6 +27,10 @@ public class ImagePool {
     }
   }
   
+  public void addImage(ImageObject newImage) {
+    images.add(newImage);
+  }
+  
   public ArrayList<ImageObject> getImages() {
     return images;
 }
@@ -54,7 +58,7 @@ public class ImagePool {
   public void saveImage(BufferedImage img, String saveLocation, String fileName, SaveType saveFormat) throws IOException {
     String extension = "";
     switch(saveFormat) {
-      case NATIVE : extension = (fileName.endsWith(".png")) ? "png" : "jpg";
+      case NATIVE : extension = (fileName.endsWith(".jpg")) ? "jpg" : "png";
         break;
       case PNG : extension = "png";
         break;

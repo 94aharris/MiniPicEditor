@@ -10,7 +10,7 @@ public class ImageObject {
   BufferedImage bimg;
   String fileName;
   
-  ImageObject (BufferedImage buffer, String name) {
+  public ImageObject (BufferedImage buffer, String name) {
     bimg = buffer;
     fileName = name;
   }
