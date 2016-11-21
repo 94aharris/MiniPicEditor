@@ -185,14 +185,12 @@
                                   <Component id="savePathButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="selectedLabel" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="getCropBtn" min="-2" pref="124" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="resizeBtn" min="-2" pref="133" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="previewFrame" min="-2" pref="301" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="getCropBtn" min="-2" pref="124" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="resizeBtn" min="-2" pref="133" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="previewFrame" alignment="1" min="-2" pref="301" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="17" max="32767" attributes="0"/>

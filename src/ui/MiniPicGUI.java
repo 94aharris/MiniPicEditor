@@ -724,6 +724,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     hgtSpinner.setEnabled(option);
     resizeSlider.setEnabled(option);
     percentSpinner.setEnabled(option);
+    getCropBtn.setEnabled(option);
   }
   
   private void previewImage(ImageObject selectedImage) {
