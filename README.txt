@@ -2,7 +2,7 @@ MiniPicEditor
 
 Author: Anthony Harris
 
-Readme Date Updated: 11/03/2016
+Readme Date Updated: 11/22/2016
 
 Repository: https://github.com/94aharris/MiniPicEditor.git
 
@@ -14,3 +14,6 @@ Features:
      - Resize on specific height / width or percentage of the photo
      - Preview the resized photo
      - Preview selected photo before resize
+     - Crop photo to create new image object
+     - Resize cropped photo
+     - Export file as .jpg or .png
