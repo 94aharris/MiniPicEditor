@@ -38,8 +38,14 @@ public class CropPanel extends JPanel{
 
   public CropPanel(BufferedImage image) {
    rawImage = image;
-   prefW = image.getWidth();
-   prefH = image.getHeight();
+   if (image.getWidth() > 600 || image.getHeight() > 600) {
+     prefW = 600;
+     prefH = 600;
+   }
+   else {
+    prefW = image.getWidth();
+    prefH = image.getHeight();
+   }
    backgroundImg = new BufferedImage(prefW, prefH, image.getType());
    Graphics2D g = backgroundImg.createGraphics();  
    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
@@ -98,9 +104,9 @@ public class CropPanel extends JPanel{
   }
    
   public BufferedImage getCroppedImage() {
-    //if (rawImage == null || startPt == null) {
-    //  return null;
-    //}
+    if (rawImage == null || startPt == null) {
+      return null;
+    }
     int drawnX = Math.min(startPt.x, endPt.x);
     int drawnY = Math.min(startPt.y, endPt.y);
     int drawnWidth = Math.abs(startPt.x - endPt.x);

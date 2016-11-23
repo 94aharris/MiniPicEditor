@@ -20,6 +20,9 @@
     <Component class="javax.swing.ButtonGroup" name="saveFormatBtnGroup">
     </Component>
     <Container class="javax.swing.JDialog" name="cropEditDiag">
+      <Properties>
+        <Property name="resizable" type="boolean" value="false"/>
+      </Properties>
 
       <Layout>
         <DimensionLayout dim="0">
