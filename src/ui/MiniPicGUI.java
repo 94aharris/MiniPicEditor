@@ -526,6 +526,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
     wdtSpinner.setValue(widthPx);
     hgtSpinner.setValue(heightPx);
     editingEnabled(false);
+    previewFrame.getContentPane().removeAll();
+    previewFrame.setPreferredSize(new java.awt.Dimension(250, 250));
+    previewFrame.updateUI();
+    previewFrame.validate();
   }//GEN-LAST:event_clearListBtnActionPerformed
 
   private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
