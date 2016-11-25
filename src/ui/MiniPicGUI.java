@@ -737,8 +737,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private void previewImage(ImageObject selectedImage) {
     previewFrame.getContentPane().removeAll();
     previewFrame.getContentPane().setLayout(new BorderLayout());
-    previewFrame.getContentPane().add(new JLabel(new ImageIcon(selectedImage.getImage())));
-    previewFrame.pack();
+    int pWidth = previewFrame.getWidth();
+    if (selectedImage.getImage().getWidth() < pWidth) { pWidth = selectedImage.getWidth(); }
+    int pHeight = previewFrame.getHeight();
+    if (selectedImage.getImage().getHeight() < pHeight) { pHeight = selectedImage.getHeight(); }
+    previewFrame.getContentPane().add(new JLabel(new ImageIcon(imagePool.resizeImage(selectedImage.getImage(),pWidth , pHeight))));
+    previewFrame.updateUI();
     previewFrame.setVisible(true);
   }
   
