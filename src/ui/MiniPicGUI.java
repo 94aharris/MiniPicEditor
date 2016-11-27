@@ -60,6 +60,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cancelCropBtn = new java.awt.Button();
     cropEditFrame = new javax.swing.JInternalFrame();
     jProgressBar1 = new javax.swing.JProgressBar();
+    colorSelectDiag = new javax.swing.JDialog();
     photoScroll = new javax.swing.JScrollPane();
     photoList = new javax.swing.JList();
     saveLabel = new javax.swing.JLabel();
@@ -90,6 +91,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
     getCropBtn = new javax.swing.JButton();
     jButton1 = new javax.swing.JButton();
 
+    editedPreviewDiag.setName("Edit Preview"); // NOI18N
+
     javax.swing.GroupLayout editedPreviewDiagLayout = new javax.swing.GroupLayout(editedPreviewDiag.getContentPane());
     editedPreviewDiag.getContentPane().setLayout(editedPreviewDiagLayout);
     editedPreviewDiagLayout.setHorizontalGroup(
@@ -101,6 +104,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       .addGap(0, 300, Short.MAX_VALUE)
     );
 
+    cropEditDiag.setName("Crop Picture"); // NOI18N
     cropEditDiag.setResizable(false);
 
     acceptCropBtn.setActionCommand("Accept Crop");
@@ -155,6 +159,19 @@ public class MiniPicGUI extends javax.swing.JFrame {
           .addComponent(cancelCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(acceptCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         .addContainerGap())
+    );
+
+    colorSelectDiag.setName("Color Select"); // NOI18N
+
+    javax.swing.GroupLayout colorSelectDiagLayout = new javax.swing.GroupLayout(colorSelectDiag.getContentPane());
+    colorSelectDiag.getContentPane().setLayout(colorSelectDiagLayout);
+    colorSelectDiagLayout.setHorizontalGroup(
+      colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 400, Short.MAX_VALUE)
+    );
+    colorSelectDiagLayout.setVerticalGroup(
+      colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 300, Short.MAX_VALUE)
     );
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -809,6 +826,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JCheckBox aspectRatioChkBox;
   private java.awt.Button cancelCropBtn;
   private javax.swing.JButton clearListBtn;
+  private javax.swing.JDialog colorSelectDiag;
   private javax.swing.JDialog cropEditDiag;
   private javax.swing.JInternalFrame cropEditFrame;
   private javax.swing.JDialog editedPreviewDiag;
