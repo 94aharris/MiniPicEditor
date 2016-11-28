@@ -61,6 +61,19 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropEditFrame = new javax.swing.JInternalFrame();
     jProgressBar1 = new javax.swing.JProgressBar();
     colorSelectDiag = new javax.swing.JDialog();
+    jLabel1 = new javax.swing.JLabel();
+    jLabel2 = new javax.swing.JLabel();
+    jLabel3 = new javax.swing.JLabel();
+    jTextField1 = new javax.swing.JTextField();
+    jTextField2 = new javax.swing.JTextField();
+    jTextField3 = new javax.swing.JTextField();
+    jTextField4 = new javax.swing.JTextField();
+    jLabel4 = new javax.swing.JLabel();
+    jScrollPane1 = new javax.swing.JScrollPane();
+    jLabel5 = new javax.swing.JLabel();
+    jTextField5 = new javax.swing.JTextField();
+    jPanel1 = new javax.swing.JPanel();
+    jLabel6 = new javax.swing.JLabel();
     photoScroll = new javax.swing.JScrollPane();
     photoList = new javax.swing.JList();
     saveLabel = new javax.swing.JLabel();
@@ -163,15 +176,113 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     colorSelectDiag.setName("Color Select"); // NOI18N
 
+    jLabel1.setText("RGB");
+
+    jLabel2.setText("HEX");
+
+    jLabel3.setText("CMYK");
+
+    jTextField1.setEditable(false);
+    jTextField1.setText("#ffffff");
+
+    jTextField2.setEditable(false);
+    jTextField2.setText("20,40,40");
+
+    jTextField3.setEditable(false);
+    jTextField3.setText("30,20,32,12");
+
+    jTextField4.setEditable(false);
+    jTextField4.setText("jTextField4");
+
+    jLabel4.setText("Pantone");
+
+    jLabel5.setText("Zoom%");
+
+    jTextField5.setText("100");
+
+    jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 0, Short.MAX_VALUE)
+    );
+    jPanel1Layout.setVerticalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGap(0, 63, Short.MAX_VALUE)
+    );
+
+    jLabel6.setText("Color Preview");
+
     javax.swing.GroupLayout colorSelectDiagLayout = new javax.swing.GroupLayout(colorSelectDiag.getContentPane());
     colorSelectDiag.getContentPane().setLayout(colorSelectDiagLayout);
     colorSelectDiagLayout.setHorizontalGroup(
       colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 400, Short.MAX_VALUE)
+      .addGroup(colorSelectDiagLayout.createSequentialGroup()
+        .addContainerGap()
+        .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(colorSelectDiagLayout.createSequentialGroup()
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jScrollPane1)
+              .addGroup(colorSelectDiagLayout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)))
+            .addContainerGap())
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorSelectDiagLayout.createSequentialGroup()
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jLabel2)
+              .addComponent(jLabel3))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(18, 18, 18)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addGroup(colorSelectDiagLayout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(colorSelectDiagLayout.createSequentialGroup()
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+              .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+              .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(40, 40, 40))))
     );
     colorSelectDiagLayout.setVerticalGroup(
       colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 300, Short.MAX_VALUE)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorSelectDiagLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+          .addGroup(colorSelectDiagLayout.createSequentialGroup()
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel5)
+              .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(43, 43, 43)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel2)
+              .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel1)
+              .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(jLabel3)
+              .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addComponent(jLabel4)
+              .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+          .addGroup(colorSelectDiagLayout.createSequentialGroup()
+            .addComponent(jLabel6)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        .addGap(21, 21, 21))
     );
 
     setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -837,7 +948,20 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JButton importImagesBtn;
   private javax.swing.JLabel importedLabel;
   private javax.swing.JButton jButton1;
+  private javax.swing.JLabel jLabel1;
+  private javax.swing.JLabel jLabel2;
+  private javax.swing.JLabel jLabel3;
+  private javax.swing.JLabel jLabel4;
+  private javax.swing.JLabel jLabel5;
+  private javax.swing.JLabel jLabel6;
+  private javax.swing.JPanel jPanel1;
   private javax.swing.JProgressBar jProgressBar1;
+  private javax.swing.JScrollPane jScrollPane1;
+  private javax.swing.JTextField jTextField1;
+  private javax.swing.JTextField jTextField2;
+  private javax.swing.JTextField jTextField3;
+  private javax.swing.JTextField jTextField4;
+  private javax.swing.JTextField jTextField5;
   private javax.swing.JLabel percLbl;
   private javax.swing.JLabel percSigLbl;
   private javax.swing.JSpinner percentSpinner;
