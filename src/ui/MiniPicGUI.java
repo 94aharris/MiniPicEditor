@@ -17,12 +17,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import handler.file.SaveType;
 
-
-/**
- * @author Anthony Harris
- * @repository https://github.com/94aharris/MiniPicEditor
- */
-
 public class MiniPicGUI extends javax.swing.JFrame {
   
   ImagePool imagePool;

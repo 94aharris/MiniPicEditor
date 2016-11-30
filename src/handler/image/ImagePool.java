@@ -9,11 +9,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import handler.file.SaveType;
 
-/**
- * @author Anthony Harris
- * @repository https://github.com/94aharris/MiniPicEditor
- */
-
 public class ImagePool {
   ArrayList <ImageObject> images;
   public ImagePool() {

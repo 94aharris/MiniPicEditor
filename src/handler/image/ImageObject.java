@@ -1,10 +1,6 @@
 package handler.image;
 import java.awt.image.BufferedImage;
 
-/**
- * @author Anthony Harris
- * @repository https://github.com/94aharris/MiniPicEditor
- */
 public class ImageObject {
   
   BufferedImage bimg;
