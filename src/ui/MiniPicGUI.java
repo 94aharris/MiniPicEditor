@@ -870,7 +870,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
     colorImgScroll.removeAll();
     colorImgScroll.add(colorPanel);
     colorPanel.repaint();
-    //colorPanel.paintComponent(colorPanel.getGraphics());
     colorSelectDiag.pack();
     colorSelectDiag.setVisible(true);
     
