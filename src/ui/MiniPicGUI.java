@@ -16,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import handler.file.SaveType;
+import java.awt.AWTException;
+import java.awt.Color;
+import java.awt.Robot;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class MiniPicGUI extends javax.swing.JFrame {
   
@@ -27,7 +32,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   File saveLocation;
   SaveType selectedSave;
   CropPanel cropPanel;
-  ColorPickPanel colorPanel;
   
   public MiniPicGUI() {
     imagePool = new ImagePool();
@@ -68,6 +72,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
     zoomTxtField = new javax.swing.JTextField();
     colorPreview = new javax.swing.JPanel();
     colorPreviewLbl = new javax.swing.JLabel();
+    alphaLbl = new javax.swing.JLabel();
+    alphaTxtField = new javax.swing.JTextField();
     photoScroll = new javax.swing.JScrollPane();
     photoList = new javax.swing.JList();
     saveLabel = new javax.swing.JLabel();
@@ -180,15 +186,22 @@ public class MiniPicGUI extends javax.swing.JFrame {
     hexTxtField.setText("#ffffff");
 
     rgbTxtField.setEditable(false);
-    rgbTxtField.setText("20,40,40");
+    rgbTxtField.setText("100,100,100");
 
     cmykTxtField.setEditable(false);
-    cmykTxtField.setText("30,20,32,12");
+    cmykTxtField.setText("100,100,100,100");
 
     ptoneTxtField.setEditable(false);
     ptoneTxtField.setText("jTextField4");
 
     ptoneLbl.setText("Pantone");
+
+    colorImgScroll.setPreferredSize(new java.awt.Dimension(600, 500));
+    colorImgScroll.addMouseListener(new java.awt.event.MouseAdapter() {
+      public void mouseClicked(java.awt.event.MouseEvent evt) {
+        colorImgScrollMouseClicked(evt);
+      }
+    });
 
     zoomLbl.setText("Zoom%");
 
@@ -209,6 +222,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     colorPreviewLbl.setText("Color Preview");
 
+    alphaLbl.setText("Alpha");
+
+    alphaTxtField.setEditable(false);
+    alphaTxtField.setText("100");
+
     javax.swing.GroupLayout colorSelectDiagLayout = new javax.swing.GroupLayout(colorSelectDiag.getContentPane());
     colorSelectDiag.getContentPane().setLayout(colorSelectDiagLayout);
     colorSelectDiagLayout.setHorizontalGroup(
@@ -218,7 +236,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
         .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(colorSelectDiagLayout.createSequentialGroup()
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(colorImgScroll)
+              .addComponent(colorImgScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
               .addGroup(colorSelectDiagLayout.createSequentialGroup()
                 .addComponent(zoomLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,14 +254,18 @@ public class MiniPicGUI extends javax.swing.JFrame {
             .addGap(18, 18, 18)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(colorSelectDiagLayout.createSequentialGroup()
-                .addComponent(rgbLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rgbTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-              .addGroup(colorSelectDiagLayout.createSequentialGroup()
                 .addComponent(ptoneLbl)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ptoneTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(ptoneTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addGroup(colorSelectDiagLayout.createSequentialGroup()
+                .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(rgbLbl)
+                  .addComponent(alphaLbl))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                  .addComponent(alphaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                  .addComponent(rgbTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(colorPreviewLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(colorPreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -253,14 +275,18 @@ public class MiniPicGUI extends javax.swing.JFrame {
       colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorSelectDiagLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(colorImgScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+        .addComponent(colorImgScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(colorSelectDiagLayout.createSequentialGroup()
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(zoomLbl)
               .addComponent(zoomTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(43, 43, 43)
+            .addGap(16, 16, 16)
+            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+              .addComponent(alphaLbl)
+              .addComponent(alphaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
               .addComponent(hexLbl)
               .addComponent(hexTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -841,7 +867,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropPanel = new CropPanel(selectedImage.getImage());
     cropPanel.setFileName(selectedImage.toString());
     cropEditFrame.setContentPane(cropPanel);
-    cropEditDiag.pack();
     cropEditDiag.setVisible(true);
   }//GEN-LAST:event_getCropBtnActionPerformed
 
@@ -866,14 +891,28 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
   private void getColorBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getColorBtnActionPerformed
     ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
-    colorPanel = new ColorPickPanel(selectedImage.getImage());
-    colorImgScroll.removeAll();
-    colorImgScroll.add(colorPanel);
-    colorPanel.repaint();
+    ImageIcon image = new ImageIcon(selectedImage.getImage());
+    colorImgScroll.setViewportView(new JLabel(image));
     colorSelectDiag.pack();
     colorSelectDiag.setVisible(true);
     
   }//GEN-LAST:event_getColorBtnActionPerformed
+
+  private void colorImgScrollMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorImgScrollMouseClicked
+    Robot robot;
+    java.awt.Point mousePoint;
+    
+    try {
+      mousePoint = java.awt.MouseInfo.getPointerInfo().getLocation();
+      robot = new Robot();
+      Color color = robot.getPixelColor(mousePoint.x, mousePoint.y);
+      alphaTxtField.setText(color.getAlpha() + "");
+      rgbTxtField.setText(color.getRed() + ", " + color.getGreen() + ", " + color.getGreen());      
+      colorPreview.setBackground(color);
+    } catch (AWTException ex) {
+      Logger.getLogger(MiniPicGUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }//GEN-LAST:event_colorImgScrollMouseClicked
   
   private void editingEnabled(boolean option) {
     wdtSpinner.setEnabled(option);
@@ -932,6 +971,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private java.awt.Button acceptCropBtn;
+  private javax.swing.JLabel alphaLbl;
+  private javax.swing.JTextField alphaTxtField;
   private javax.swing.JCheckBox aspectRatioChkBox;
   private java.awt.Button cancelCropBtn;
   private javax.swing.JButton clearListBtn;

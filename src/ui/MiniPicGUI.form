@@ -111,7 +111,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="colorImgScroll" max="32767" attributes="0"/>
+                              <Component id="colorImgScroll" pref="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="zoomLbl" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -134,17 +134,23 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="rgbLbl" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="rgbTxtField" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
                                   <Component id="ptoneLbl" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="ptoneTxtField" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="rgbLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="alphaLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="alphaTxtField" min="-2" max="-2" attributes="0"/>
+                                      <Component id="rgbTxtField" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace pref="19" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="colorPreviewLbl" max="32767" attributes="0"/>
                               <Component id="colorPreview" max="32767" attributes="0"/>
@@ -159,7 +165,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="colorImgScroll" pref="253" max="32767" attributes="0"/>
+                  <Component id="colorImgScroll" pref="248" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
@@ -167,7 +173,12 @@
                               <Component id="zoomLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="zoomTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="alphaLbl" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="alphaTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="hexLbl" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="hexTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -218,13 +229,13 @@
         <Component class="javax.swing.JTextField" name="rgbTxtField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="20,40,40"/>
+            <Property name="text" type="java.lang.String" value="100,100,100"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="cmykTxtField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="30,20,32,12"/>
+            <Property name="text" type="java.lang.String" value="100,100,100,100"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="ptoneTxtField">
@@ -239,6 +250,14 @@
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="colorImgScroll">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[600, 500]"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="colorImgScrollMouseClicked"/>
+          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
         </Container>
@@ -277,6 +296,17 @@
         <Component class="javax.swing.JLabel" name="colorPreviewLbl">
           <Properties>
             <Property name="text" type="java.lang.String" value="Color Preview"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="alphaLbl">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Alpha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="alphaTxtField">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="100"/>
           </Properties>
         </Component>
       </SubComponents>
