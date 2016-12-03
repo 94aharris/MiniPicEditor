@@ -18,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import handler.file.SaveType;
 import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Robot;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -200,6 +201,9 @@ public class MiniPicGUI extends javax.swing.JFrame {
     colorImgScroll.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
         colorImgScrollMouseClicked(evt);
+      }
+      public void mouseEntered(java.awt.event.MouseEvent evt) {
+        colorImgScrollMouseEntered(evt);
       }
     });
 
@@ -913,6 +917,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
       Logger.getLogger(MiniPicGUI.class.getName()).log(Level.SEVERE, null, ex);
     }
   }//GEN-LAST:event_colorImgScrollMouseClicked
+
+  private void colorImgScrollMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorImgScrollMouseEntered
+    colorImgScroll.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+  }//GEN-LAST:event_colorImgScrollMouseEntered
   
   private void editingEnabled(boolean option) {
     wdtSpinner.setEnabled(option);
