@@ -217,7 +217,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     colorPreview.setLayout(colorPreviewLayout);
     colorPreviewLayout.setHorizontalGroup(
       colorPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 95, Short.MAX_VALUE)
     );
     colorPreviewLayout.setVerticalGroup(
       colorPreviewLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,23 +238,22 @@ public class MiniPicGUI extends javax.swing.JFrame {
       .addGroup(colorSelectDiagLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addComponent(colorImgScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
           .addGroup(colorSelectDiagLayout.createSequentialGroup()
-            .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(colorImgScroll, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-              .addGroup(colorSelectDiagLayout.createSequentialGroup()
-                .addComponent(zoomLbl)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(zoomTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE)))
-            .addContainerGap())
+            .addComponent(zoomLbl)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(zoomTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE))
           .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorSelectDiagLayout.createSequentialGroup()
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addComponent(hexLbl)
               .addComponent(cmykLbl))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-              .addComponent(cmykTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-              .addComponent(hexTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+              .addComponent(cmykTxtField)
+              .addGroup(colorSelectDiagLayout.createSequentialGroup()
+                .addComponent(hexTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE)))
             .addGap(18, 18, 18)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
               .addGroup(colorSelectDiagLayout.createSequentialGroup()
@@ -269,17 +268,17 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(alphaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                   .addComponent(rgbTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(18, 18, 18)
             .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
               .addComponent(colorPreviewLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-              .addComponent(colorPreview, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGap(40, 40, 40))))
+              .addComponent(colorPreview, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        .addContainerGap())
     );
     colorSelectDiagLayout.setVerticalGroup(
       colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, colorSelectDiagLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(colorImgScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+        .addComponent(colorImgScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addGroup(colorSelectDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
           .addGroup(colorSelectDiagLayout.createSequentialGroup()
@@ -444,7 +443,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     );
     previewFrameLayout.setVerticalGroup(
       previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 216, Short.MAX_VALUE)
+      .addGap(0, 215, Short.MAX_VALUE)
     );
 
     previewResizeBtn.setText("Preview Resized Image");
@@ -911,11 +910,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
       robot = new Robot();
       Color color = robot.getPixelColor(mousePoint.x, mousePoint.y);
       alphaTxtField.setText(color.getAlpha() + "");
-      rgbTxtField.setText(color.getRed() + ", " + color.getGreen() + ", " + color.getGreen());      
+      rgbTxtField.setText(color.getRed() + ", " + color.getGreen() + ", " + color.getBlue());
+      cmykTxtField.setText(rgbToCmyk(color));
+      hexTxtField.setText("#" + Integer.toHexString(color.getRed()) + 
+              Integer.toHexString(color.getGreen()) + 
+              Integer.toHexString(color.getBlue()));
       colorPreview.setBackground(color);
     } catch (AWTException ex) {
       Logger.getLogger(MiniPicGUI.class.getName()).log(Level.SEVERE, null, ex);
-    }
+    }    
   }//GEN-LAST:event_colorImgScrollMouseClicked
 
   private void colorImgScrollMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorImgScrollMouseEntered
@@ -939,6 +942,24 @@ public class MiniPicGUI extends javax.swing.JFrame {
     previewFrame.getContentPane().add(new JLabel(new ImageIcon(imagePool.resizeImage(selectedImage.getImage(),pWidth , pHeight))));
     previewFrame.updateUI();
     previewFrame.setVisible(true);
+  }
+  
+  private String rgbToCmyk(Color rgbColor) {
+    double redPrime = rgbColor.getRed()/255.0;
+    double bluePrime = rgbColor.getBlue()/255.0;
+    double greenPrime = rgbColor.getGreen()/255.0;
+ 
+    double black = 1 - (Math.max(bluePrime, Math.max(redPrime, greenPrime)));
+    double cyan = (1-redPrime-black) / (1-black);
+    if (cyan <= 0) cyan = 0;
+    double magenta = (1-greenPrime-black) / (1-black);
+    if (magenta <= 0) magenta = 0;
+    double yellow = (1-bluePrime-black) / (1-black);
+    if (yellow <= 0) yellow = 0;
+    
+    java.text.DecimalFormat numFormat = new java.text.DecimalFormat("#.###");
+    return (numFormat.format(cyan) + ", " + numFormat.format(magenta) + ", " + 
+            numFormat.format(yellow) + ", " + numFormat.format(black));
   }
   
   /**
