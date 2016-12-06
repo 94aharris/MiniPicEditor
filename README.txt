@@ -16,4 +16,5 @@ Features:
      - Preview selected photo before resize
      - Crop photo to create new image object
      - Resize cropped photo
+     - Select pixel from image, display RGB, converted CMYK, and Hexadecimal values
      - Export file as .jpg or .png
