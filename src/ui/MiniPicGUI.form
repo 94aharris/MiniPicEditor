@@ -109,49 +109,46 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="colorImgScroll" pref="499" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="zoomLbl" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="zoomTxtField" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
+                      <Component id="colorImgScroll" pref="527" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="hexLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="cmykLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="zoomLbl" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cmykTxtField" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="hexTxtField" min="-2" pref="81" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="ptoneLbl" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ptoneTxtField" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="rgbLbl" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="alphaLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="hexTxtField" min="-2" pref="81" max="-2" attributes="0"/>
+                                      <Component id="cmykTxtField" min="-2" pref="150" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="ptoneLbl" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="ptoneTxtField" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="rgbLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="alphaLbl" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="alphaTxtField" min="-2" max="-2" attributes="0"/>
+                                              <Component id="rgbTxtField" min="-2" pref="124" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="alphaTxtField" min="-2" max="-2" attributes="0"/>
-                                      <Component id="rgbTxtField" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="colorPreviewLbl" max="32767" attributes="0"/>
+                                      <Component id="colorPreview" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="colorPreviewLbl" max="32767" attributes="0"/>
-                              <Component id="colorPreview" min="-2" max="-2" attributes="0"/>
+                              <Component id="colorZoomSpin" min="-2" pref="65" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -163,13 +160,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="colorImgScroll" pref="244" max="32767" attributes="0"/>
+                  <Component id="colorImgScroll" pref="239" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="zoomLbl" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="zoomTxtField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="colorZoomSpin" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -239,7 +236,6 @@
         <Component class="javax.swing.JTextField" name="ptoneTxtField">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="jTextField4"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="ptoneLbl">
@@ -263,11 +259,6 @@
         <Component class="javax.swing.JLabel" name="zoomLbl">
           <Properties>
             <Property name="text" type="java.lang.String" value="Zoom%"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="zoomTxtField">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="100"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="colorPreview">
@@ -307,6 +298,11 @@
             <Property name="editable" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="100"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="colorZoomSpin">
+          <Events>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="colorZoomSpinStateChanged"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -366,22 +362,22 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="wdtPxLbl" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="saveLabel" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="saveTextField" min="-2" pref="201" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
                                       <Component id="saveOriginalBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="savePngBtn" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="saveJpgBtn" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="saveLabel" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="saveTextField" min="-2" pref="201" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="savePathButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="savePathButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -398,12 +394,12 @@
                           <Component id="resizeSlider" alignment="0" min="-2" pref="292" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="aspectRatioChkBox" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="previewResizeBtn" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="resizeOptionsLabel" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="resizeBtn" min="-2" pref="133" max="-2" attributes="0"/>
                           <Component id="selectedLabel" min="-2" max="-2" attributes="0"/>
@@ -732,7 +728,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="215" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="216" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
