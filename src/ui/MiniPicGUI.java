@@ -779,6 +779,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
       return;
     }
     
+    int resizeSuccess = 0;
+    int resizeFailure = 0;
     for (Object item : photoList.getSelectedValuesList()) {
       BufferedImage newBimg = ((ImageObject)item).getImage();
       BufferedImage resizeImage;
@@ -790,13 +792,19 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
       try {
         imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString(), selectedSave);
-        JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved", "Success", JOptionPane.PLAIN_MESSAGE);
+        resizeSuccess++;
       } catch (NullPointerException e) {
         JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
+        resizeFailure++;
       } catch (IOException e) {
         JOptionPane.showMessageDialog(null, "Error during file saving", "File Save Error/n" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
+        resizeFailure++;
       }
     }
+    JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved " + 
+            resizeSuccess + " / " + photoList.getSelectedIndices().length + 
+            "\nEncountered " + resizeFailure + " errors", 
+            "Save Results", JOptionPane.PLAIN_MESSAGE);
   }//GEN-LAST:event_resizeBtnActionPerformed
 
   private void hgtSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hgtSpinnerStateChanged
