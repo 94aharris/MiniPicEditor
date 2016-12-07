@@ -371,6 +371,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     resizeBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     resizeBtn.setText("Resize and Save");
+    resizeBtn.setEnabled(false);
     resizeBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         resizeBtnActionPerformed(evt);
@@ -380,6 +381,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     aspectRatioChkBox.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     aspectRatioChkBox.setSelected(true);
     aspectRatioChkBox.setText("Keep Aspect Ratio");
+    aspectRatioChkBox.setEnabled(false);
     aspectRatioChkBox.addChangeListener(new javax.swing.event.ChangeListener() {
       public void stateChanged(javax.swing.event.ChangeEvent evt) {
         aspectRatioChkBoxStateChanged(evt);
@@ -407,6 +409,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
 
     clearListBtn.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
     clearListBtn.setText("Clear Images");
+    clearListBtn.setEnabled(false);
     clearListBtn.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         clearListBtnActionPerformed(evt);
@@ -685,6 +688,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       public int getSize() { return strings.length; }
       public Object getElementAt(int i) { return strings[i]; }
     });
+    
     heightPx = 0;
     widthPx = 0;
     wdtSpinner.setValue(widthPx);
@@ -712,33 +716,19 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private void photoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_photoListValueChanged
     resizeSlider.setValue(100);
     percentSpinner.setValue(100);
-    previewResizeBtn.setEnabled(false);
-    getCropBtn.setEnabled(false);
-    getColorBtn.setEnabled(false);
     
     int [] selectedImages = photoList.getSelectedIndices();
-    if (selectedImages.length > 1) {
-      aspectRatioChkBox.getModel().setSelected(true);
-      aspectRatioChkBox.getModel().setEnabled(false);
-      hgtSpinner.setEnabled(false);
-      wdtSpinner.setEnabled(false);
-    }
-    else if (selectedImages.length == 1) 
+    if (selectedImages.length >= 1) 
     {
-      previewResizeBtn.setEnabled(true);
-      getCropBtn.setEnabled(true);
-      getColorBtn.setEnabled(true);
+      editingEnabled(true);
       ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
-      aspectRatioChkBox.getModel().setEnabled(true);
-      aspectRatioChkBox.getModel().setPressed(true);
-      hgtSpinner.setEnabled(true);
       hgtSpinner.setValue(selectedImage.getHeight());
-      wdtSpinner.setEnabled(true);
-      wdtSpinner.setValue(selectedImage.getWidth());
-      
+      wdtSpinner.setValue(selectedImage.getWidth());   
       previewImage(selectedImage);
     }
-    
+    else {
+     editingEnabled(false); 
+    } 
   }//GEN-LAST:event_photoListValueChanged
 
   private void percentSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_percentSpinnerStateChanged
@@ -764,8 +754,17 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_percentSpinnerStateChanged
   
   private void aspectRatioChkBoxStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_aspectRatioChkBoxStateChanged
-    resizeSlider.setEnabled(aspectRatioChkBox.getModel().isSelected());
-    percentSpinner.setEnabled(aspectRatioChkBox.getModel().isSelected());
+    if (photoList.getComponentCount() == 0) {
+      return;
+    }
+    
+    boolean ratioBool = aspectRatioChkBox.getModel().isSelected();
+    resizeSlider.setEnabled(ratioBool);
+    percentSpinner.setEnabled(ratioBool);
+    if (photoList.getSelectedIndices().length > 1) {
+      wdtSpinner.setEnabled(!ratioBool);
+      hgtSpinner.setEnabled(!ratioBool);
+    }
   }//GEN-LAST:event_aspectRatioChkBoxStateChanged
 
   private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
@@ -783,7 +782,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     for (Object item : photoList.getSelectedValuesList()) {
       BufferedImage newBimg = ((ImageObject)item).getImage();
       BufferedImage resizeImage;
-      if (photoList.getSelectedIndices().length == 1) {
+      if (wdtSpinner.isEnabled() && hgtSpinner.isEnabled()) {
         resizeImage = imagePool.resizeImage(newBimg, widthPx, heightPx);
       }
       else {
@@ -804,7 +803,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     if (rescaleInterrupt) {
       return;
     }
-    if ((int)hgtSpinner.getValue() < 1 || photoList.getSelectedIndices().length != 1) {
+    if ((int)hgtSpinner.getValue() < 1) {
       hgtSpinner.setValue(heightPx);
       return;
     }
@@ -826,7 +825,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       return;
     }
     
-    if ((int)wdtSpinner.getValue() < 1 || photoList.getSelectedIndices().length != 1) {
+    if ((int)wdtSpinner.getValue() < 1) {
       wdtSpinner.setValue(widthPx);
       return;
     }
@@ -960,6 +959,21 @@ public class MiniPicGUI extends javax.swing.JFrame {
     hgtSpinner.setEnabled(option);
     resizeSlider.setEnabled(option);
     percentSpinner.setEnabled(option);
+    aspectRatioChkBox.setEnabled(option);
+    resizeBtn.setEnabled(option);
+    previewResizeBtn.setEnabled(option);
+    getCropBtn.setEnabled(option);
+    getColorBtn.setEnabled(option);
+    clearListBtn.setEnabled(option);
+    resizeBtn.setEnabled(option);
+    
+    if (photoList.getSelectedIndices().length > 1) {
+      aspectRatioChkBox.getModel().setSelected(true);
+      hgtSpinner.setEnabled(false);
+      wdtSpinner.setEnabled(false);
+      getCropBtn.setEnabled(false);
+      getColorBtn.setEnabled(false);
+    }
   }
   
   private void previewImage(ImageObject selectedImage) {
