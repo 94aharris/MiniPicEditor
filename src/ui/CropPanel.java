@@ -35,8 +35,14 @@ public class CropPanel extends JPanel{
   public CropPanel(BufferedImage image) {
    rawImage = image;
    if (image.getWidth() > 600 || image.getHeight() > 600) {
-     prefW = 600;
-     prefH = 600;
+     if (image.getWidth() >= image.getHeight()) {
+       prefW = 600;
+       prefH = (image.getHeight() * 600) / image.getWidth();
+     }
+     else {
+       prefH = 600;
+       prefW = (image.getWidth() * 600) / image.getHeight();
+     }
    }
    else {
     prefW = image.getWidth();

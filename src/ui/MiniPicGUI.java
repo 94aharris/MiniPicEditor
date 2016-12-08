@@ -142,11 +142,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     cropEditFrame.getContentPane().setLayout(cropEditFrameLayout);
     cropEditFrameLayout.setHorizontalGroup(
       cropEditFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 0, Short.MAX_VALUE)
+      .addGap(0, 27, Short.MAX_VALUE)
     );
     cropEditFrameLayout.setVerticalGroup(
       cropEditFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 157, Short.MAX_VALUE)
+      .addGap(0, 99, Short.MAX_VALUE)
     );
 
     javax.swing.GroupLayout cropEditDiagLayout = new javax.swing.GroupLayout(cropEditDiag.getContentPane());
@@ -156,19 +156,20 @@ public class MiniPicGUI extends javax.swing.JFrame {
       .addGroup(cropEditDiagLayout.createSequentialGroup()
         .addContainerGap()
         .addGroup(cropEditDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(cropEditFrame)
+          .addComponent(cropEditFrame, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addGroup(cropEditDiagLayout.createSequentialGroup()
             .addComponent(acceptCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-            .addComponent(cancelCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(25, 25, 25)
+            .addComponent(cancelCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGap(0, 0, Short.MAX_VALUE)))
         .addContainerGap())
     );
     cropEditDiagLayout.setVerticalGroup(
       cropEditDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, cropEditDiagLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(cropEditFrame)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(cropEditFrame, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addGroup(cropEditDiagLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(cancelCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(acceptCropBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
