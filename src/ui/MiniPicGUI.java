@@ -33,6 +33,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   File saveLocation;
   SaveType selectedSave;
   CropPanel cropPanel;
+  JFileChooser fileChooser = new JFileChooser(".");
   
   public MiniPicGUI() {
     imagePool = new ImagePool();
@@ -651,7 +652,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_savePathButtonActionPerformed
 
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
-    JFileChooser fileChooser = new JFileChooser(".");
     fileChooser.setMultiSelectionEnabled(true);
     FileFilter imageFilter = new FileNameExtensionFilter("Image Files", ImageIO.getReaderFileSuffixes());
     fileChooser.addChoosableFileFilter(imageFilter);
