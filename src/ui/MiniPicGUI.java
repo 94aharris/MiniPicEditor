@@ -316,6 +316,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     setBackground(java.awt.Color.lightGray);
     setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
     setForeground(java.awt.Color.lightGray);
+    setIconImages(null);
     setResizable(false);
 
     photoScroll.setFont(new java.awt.Font("Arial", 0, 13)); // NOI18N
@@ -449,7 +450,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     );
     previewFrameLayout.setVerticalGroup(
       previewFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 216, Short.MAX_VALUE)
+      .addGap(0, 215, Short.MAX_VALUE)
     );
 
     previewResizeBtn.setText("Preview Resized Image");
@@ -556,7 +557,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(getColorBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
               .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 4, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
