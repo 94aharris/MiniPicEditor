@@ -105,7 +105,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     selectedLabel = new javax.swing.JLabel();
     getCropBtn = new javax.swing.JButton();
     getColorBtn = new javax.swing.JButton();
-    jButton1 = new javax.swing.JButton();
+    saveBtn = new javax.swing.JButton();
 
     editedPreviewDiag.setName("Edit Preview"); // NOI18N
 
@@ -508,7 +508,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
       }
     });
 
-    jButton1.setText("Save Selected Images");
+    saveBtn.setText("Save Selected Images");
+    saveBtn.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        saveBtnActionPerformed(evt);
+      }
+    });
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
     getContentPane().setLayout(layout);
@@ -561,7 +566,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
                 .addComponent(previewFrame, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE))
               .addGroup(layout.createSequentialGroup()
                 .addGap(151, 151, 151)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(saveBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
               .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                   .addComponent(selectedLabel)
@@ -640,7 +645,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
               .addComponent(savePngBtn)
               .addComponent(saveJpgBtn))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jButton1)))
+            .addComponent(saveBtn)))
         .addGap(5, 5, 5))
     );
 
@@ -787,39 +792,42 @@ public class MiniPicGUI extends javax.swing.JFrame {
       JOptionPane.showMessageDialog(null, "Please Select A Photo", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
-    
+          
     if (heightPx == 0 || widthPx == 0) {
       JOptionPane.showMessageDialog(null, "Height and Width must be greater than 0", "Error", JOptionPane.ERROR_MESSAGE);
       return;
     }
     
-    int resizeSuccess = 0;
-    int resizeFailure = 0;
+    Boolean ratioScale = false;
+    if (aspectRatioChkBox.isSelected() && photoList.getSelectedIndices().length > 1) {
+      ratioScale = true;
+    }
+    
     for (Object item : photoList.getSelectedValuesList()) {
       ImageObject selectedImage = (ImageObject)item;
       BufferedImage resizeImage;
-      if (wdtSpinner.isEnabled() && hgtSpinner.isEnabled()) {
-        resizeImage = imagePool.resizeImage(selectedImage.getImage(), widthPx, heightPx);
-        ImageObject resizeObject = new ImageObject(resizeImage, (selectedImage.toString() + "_resize_" + widthPx + "x" + heightPx));
-      }
-      else {
+      if (ratioScale) {
         resizeImage = imagePool.resizeImage(selectedImage.getImage(), percentScale);
       }
-      try {
-        imagePool.saveImage(resizeImage, saveLocation.getPath(), ((ImageObject)item).toString(), selectedSave);
-        resizeSuccess++;
-      } catch (NullPointerException e) {
-        JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
-        resizeFailure++;
-      } catch (IOException e) {
-        JOptionPane.showMessageDialog(null, "Error during file saving", "File Save Error/n" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
-        resizeFailure++;
+      else {
+        resizeImage = imagePool.resizeImage(selectedImage.getImage(), widthPx, heightPx);
       }
+      
+      // Create New FileName
+      int lastDot = selectedImage.toString().lastIndexOf('.');
+      String newName = selectedImage.toString().substring(0, lastDot) + "_resize_" +
+              resizeImage.getWidth() + "x" + resizeImage.getHeight() +
+              selectedImage.toString().substring(lastDot);
+
+      // Add resized Image to list
+      ImageObject resizeObject = new ImageObject(resizeImage, newName);
+      imagePool.addImage(resizeObject);   
     }
-    JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved " + 
-            resizeSuccess + " / " + photoList.getSelectedIndices().length + 
-            "\nEncountered " + resizeFailure + " errors", 
-            "Save Results", JOptionPane.PLAIN_MESSAGE);
+    photoList.setModel(new javax.swing.AbstractListModel () {
+          ImageObject[] imageListArray = imagePool.getImages().toArray(new ImageObject [imagePool.getImages().size()]);
+          public int getSize() { return imageListArray.length; }
+          public Object getElementAt(int i) { return imageListArray[i]; }          
+    });   
   }//GEN-LAST:event_resizeBtnActionPerformed
 
   private void hgtSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hgtSpinnerStateChanged
@@ -976,6 +984,38 @@ public class MiniPicGUI extends javax.swing.JFrame {
       colorSelectDiag.setVisible(false);
     }
   }//GEN-LAST:event_colorZoomSpinStateChanged
+
+  private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
+    if (photoList.getSelectedIndices().length == 0) {
+      JOptionPane.showMessageDialog(null, "Please Select A Photo", "Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    
+    int saveSuccess = 0;
+    int saveFailure = 0;
+    
+    // Attempt to save selected Images
+    for (Object item : photoList.getSelectedValuesList()) {
+      ImageObject selectedImage = (ImageObject)item;
+      try {
+        imagePool.saveImage(selectedImage.getImage(), saveLocation.getPath(), ((ImageObject)item).toString(), selectedSave);
+        saveSuccess++;
+      } catch (NullPointerException e) {
+        JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
+        saveFailure++;
+      } catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "Error during file saving", "File Save Error/n" + e.getMessage(), JOptionPane.ERROR_MESSAGE);
+        saveFailure++;
+      }
+    }
+    
+    // Display Save results
+    JOptionPane.showMessageDialog(null, "Sucessfully Resized and Saved " + 
+        saveSuccess + " / " + photoList.getSelectedIndices().length + 
+        "\nEncountered " + saveFailure + " errors", 
+        "Save Results", JOptionPane.PLAIN_MESSAGE);
+    
+  }//GEN-LAST:event_saveBtnActionPerformed
   
   private void editingEnabled(boolean option) {
     wdtSpinner.setEnabled(option);
@@ -1091,7 +1131,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JSpinner hgtSpinner;
   private javax.swing.JButton importImagesBtn;
   private javax.swing.JLabel importedLabel;
-  private javax.swing.JButton jButton1;
   private javax.swing.JLabel percLbl;
   private javax.swing.JLabel percSigLbl;
   private javax.swing.JSpinner percentSpinner;
@@ -1106,6 +1145,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JSlider resizeSlider;
   private javax.swing.JLabel rgbLbl;
   private javax.swing.JTextField rgbTxtField;
+  private javax.swing.JButton saveBtn;
   private javax.swing.ButtonGroup saveFormatBtnGroup;
   private javax.swing.JRadioButton saveJpgBtn;
   private javax.swing.JLabel saveLabel;

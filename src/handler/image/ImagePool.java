@@ -60,8 +60,6 @@ public class ImagePool {
       case JPEG : extension = "jpg";
     }
     
-    String[] splits = fileName.split("\\.");
-    fileName = splits[0] + "_edited." + extension;
     ImageIO.write(img, extension, new File(saveLocation + "/" + fileName));
   }
   

@@ -101,8 +101,8 @@ public class CropPanel extends JPanel{
   }
   
   public String getImageName() {
-    String[] splits = imageName.split("\\.");
-    return(splits[0] + "_cropped." + splits[1]);
+    int lastDot = imageName.lastIndexOf('.');
+    return (imageName.substring(0, lastDot) + "_cropped" + imageName.substring(lastDot));
   }
    
   public BufferedImage getCroppedImage() {
