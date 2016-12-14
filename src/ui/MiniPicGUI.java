@@ -19,6 +19,7 @@ import handler.file.SaveType;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Image;
 import java.awt.Robot;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
     initComponents();
     rescaleInterrupt = false;
     selectedSave = SaveType.NATIVE;
+    java.util.List<Image> icons = new java.util.ArrayList<Image>();
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-16.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-24.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-32.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-64.gif")));
+    this.setIconImages(icons);
   }
 
   /**
