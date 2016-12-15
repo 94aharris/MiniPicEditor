@@ -31,8 +31,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
   int heightPx;
   int widthPx;
   boolean rescaleInterrupt;
-  File saveLocation;
-  SaveType selectedSave;
+  SaveOptions saveOptions = new SaveOptions();
   CropPanel cropPanel;
   JFileChooser fileChooser = new JFileChooser(".");
   
@@ -43,12 +42,11 @@ public class MiniPicGUI extends javax.swing.JFrame {
     widthPx = 0;
     initComponents();
     rescaleInterrupt = false;
-    selectedSave = SaveType.NATIVE;
     java.util.List<Image> icons = new java.util.ArrayList<Image>();
-    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-16.gif")));
-    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-24.gif")));
-    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-32.gif")));
-    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/MPE-64.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/Minipic-16.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/Minipic-24.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/Minipic-32.gif")));
+    icons.add(java.awt.Toolkit.getDefaultToolkit().getImage(MiniPicGUI.class.getResource("/images/Minipic-64.gif")));
     this.setIconImages(icons);
   }
 
@@ -660,20 +658,8 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }// </editor-fold>//GEN-END:initComponents
 
   private void savePathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePathButtonActionPerformed
-    JFileChooser folderChooser;
-    if (saveTextField.equals("")) {
-      folderChooser = new JFileChooser(".");
-    }
-    else {
-      folderChooser = new JFileChooser(saveTextField.getText());
-    }
-    folderChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-    folderChooser.setAcceptAllFileFilterUsed(false);
-    int result = folderChooser.showOpenDialog(folderChooser);
-    if (result == JFileChooser.APPROVE_OPTION) {
-      saveTextField.setText(folderChooser.getSelectedFile().getPath());
-      saveLocation = folderChooser.getSelectedFile();
-    }
+    String savePath = saveOptions.selectDestination();
+    saveTextField.setText(savePath);
   }//GEN-LAST:event_savePathButtonActionPerformed
 
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
@@ -693,9 +679,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
           public int getSize() { return imageListArray.length; }
           public Object getElementAt(int i) { return imageListArray[i]; }          
         });
-        if (saveTextField.getText().equals("")) {
-          saveTextField.setText(selectedFiles[0].getParent());
-          saveLocation = selectedFiles[0].getParentFile();
+        if (!saveOptions.isSaveLocationSet()) {
+          File photoDirectory = selectedFiles[0].getParentFile();
+          String saveDestination = saveOptions.selectDestination(photoDirectory);
+          saveTextField.setText(saveDestination);
         }
       }  catch (FileNotFoundException e) {
         JOptionPane.showMessageDialog(null, "Image can not be opened", "File Open Error", JOptionPane.ERROR_MESSAGE);
@@ -891,15 +878,15 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_previewResizeBtnActionPerformed
 
   private void saveOriginalBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveOriginalBtnActionPerformed
-    selectedSave = SaveType.NATIVE;
+    saveOptions.setSaveType(SaveType.NATIVE);
   }//GEN-LAST:event_saveOriginalBtnActionPerformed
 
   private void savePngBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savePngBtnActionPerformed
-    selectedSave = SaveType.PNG;
+    saveOptions.setSaveType(SaveType.PNG);
   }//GEN-LAST:event_savePngBtnActionPerformed
 
   private void saveJpgBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveJpgBtnActionPerformed
-    selectedSave = SaveType.JPEG;
+    saveOptions.setSaveType(SaveType.JPEG);
   }//GEN-LAST:event_saveJpgBtnActionPerformed
 
   private void getCropBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getCropBtnActionPerformed
@@ -1005,7 +992,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     for (Object item : photoList.getSelectedValuesList()) {
       ImageObject selectedImage = (ImageObject)item;
       try {
-        imagePool.saveImage(selectedImage.getImage(), saveLocation.getPath(), ((ImageObject)item).toString(), selectedSave);
+        imagePool.saveImage(selectedImage.getImage(), saveOptions.getSavePath(), ((ImageObject)item).toString(), saveOptions.getSaveType());
         saveSuccess++;
       } catch (NullPointerException e) {
         JOptionPane.showMessageDialog(null, "Invalid save file location", "File Save Error", JOptionPane.ERROR_MESSAGE);
