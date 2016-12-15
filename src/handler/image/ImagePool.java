@@ -8,15 +8,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import handler.file.SaveType;
+import ui.PhotoImporter;
 
 public class ImagePool {
-  ArrayList <ImageObject> images;
+  private ArrayList <ImageObject> images;
+  private PhotoImporter importer = new PhotoImporter();
+  
   public ImagePool() {
     images = new ArrayList<>();
   }
   
   public void addImage(File [] imageFiles) throws IOException {
-    BufferedImage bimg = null;
     for (File file : imageFiles) {
       images.add(new ImageObject(ImageIO.read(file), file.getName()));
     }
@@ -65,5 +67,20 @@ public class ImagePool {
   
   public void saveImage(BufferedImage img, String saveLocation, String fileName) throws IOException {
     saveImage(img, saveLocation, fileName, SaveType.NATIVE);
+  }
+  
+  public void importPhotos() throws IOException{
+    File [] importedImages = importer.importPhotos();
+    if (importedImages.length > 0) {
+      addImage(importedImages);
+    }
+  }
+  
+  public javax.swing.AbstractListModel generateList() {
+    return new javax.swing.AbstractListModel () {
+          ImageObject[] imageListArray = images.toArray(new ImageObject [images.size()]);
+          public int getSize() { return imageListArray.length; }
+          public Object getElementAt(int i) { return imageListArray[i]; }          
+        };
   }
 }

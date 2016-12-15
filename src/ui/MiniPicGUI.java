@@ -663,25 +663,12 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_savePathButtonActionPerformed
 
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
-    fileChooser.setMultiSelectionEnabled(true);
-    FileFilter imageFilter = new FileNameExtensionFilter("Image Files", ImageIO.getReaderFileSuffixes());
-    fileChooser.addChoosableFileFilter(imageFilter);
-    fileChooser.setAcceptAllFileFilterUsed(false);
-    
-    int result = fileChooser.showOpenDialog(fileChooser);
-    if (result == JFileChooser.APPROVE_OPTION) {
-      editingEnabled(true);
-      File [] selectedFiles = fileChooser.getSelectedFiles();
-      try(Scanner sc = new Scanner(selectedFiles[0])) {
-        imagePool.addImage(selectedFiles);
-        photoList.setModel(new javax.swing.AbstractListModel () {
-          ImageObject[] imageListArray = imagePool.getImages().toArray(new ImageObject [imagePool.getImages().size()]);
-          public int getSize() { return imageListArray.length; }
-          public Object getElementAt(int i) { return imageListArray[i]; }          
-        });
+    editingEnabled(true);
+      try {
+        imagePool.importPhotos();
+        photoList.setModel(imagePool.generateList());
         if (!saveOptions.isSaveLocationSet()) {
-          File photoDirectory = selectedFiles[0].getParentFile();
-          String saveDestination = saveOptions.selectDestination(photoDirectory);
+          String saveDestination = saveOptions.selectDestination();
           saveTextField.setText(saveDestination);
         }
       }  catch (FileNotFoundException e) {
@@ -691,7 +678,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
       } catch (NullPointerException e) {
         JOptionPane.showMessageDialog(null, "Error Pointing to File", "Image Open Error", JOptionPane.ERROR_MESSAGE);
       }
-    }
   }//GEN-LAST:event_importImagesBtnActionPerformed
 
   private void clearListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearListBtnActionPerformed
