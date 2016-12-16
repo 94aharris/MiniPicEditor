@@ -1,21 +1,17 @@
 package ui;
 
 import handler.image.ImageObject;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import handler.image.ImagePool;
 import java.awt.BorderLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import handler.file.SaveType;
+import handler.image.ImageResizer;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -27,6 +23,7 @@ import java.util.logging.Logger;
 public class MiniPicGUI extends javax.swing.JFrame {
   
   ImagePool imagePool;
+  ImageResizer resizer = new ImageResizer();
   int percentScale;
   int heightPx;
   int widthPx;
@@ -663,7 +660,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_savePathButtonActionPerformed
 
   private void importImagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importImagesBtnActionPerformed
-    editingEnabled(true);
       try {
         imagePool.importPhotos();
         photoList.setModel(imagePool.generateList());
@@ -681,22 +677,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_importImagesBtnActionPerformed
 
   private void clearListBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearListBtnActionPerformed
-    imagePool = new ImagePool();
-    photoList.setModel(new javax.swing.AbstractListModel() {
-      String[] strings = {};
-      public int getSize() { return strings.length; }
-      public Object getElementAt(int i) { return strings[i]; }
-    });
+    imagePool.clearPool();
+    photoList.setModel(imagePool.generateList());
     
     heightPx = 0;
     widthPx = 0;
     wdtSpinner.setValue(widthPx);
     hgtSpinner.setValue(heightPx);
-    editingEnabled(false);
-    previewFrame.getContentPane().removeAll();
-    previewFrame.setPreferredSize(new java.awt.Dimension(250, 250));
-    previewFrame.updateUI();
-    previewFrame.validate();
   }//GEN-LAST:event_clearListBtnActionPerformed
 
   private void resizeSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_resizeSliderStateChanged
@@ -713,9 +700,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_resizeSliderStateChanged
 
   private void photoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_photoListValueChanged
-    resizeSlider.setValue(100);
-    percentSpinner.setValue(100);
-    
     int [] selectedImages = photoList.getSelectedIndices();
     if (selectedImages.length >= 1) 
     {
@@ -767,7 +751,6 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_aspectRatioChkBoxStateChanged
 
   private void resizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resizeBtnActionPerformed
-    
     if (photoList.getSelectedIndices().length == 0) {
       JOptionPane.showMessageDialog(null, "Please Select A Photo", "Error", JOptionPane.ERROR_MESSAGE);
       return;
@@ -787,10 +770,10 @@ public class MiniPicGUI extends javax.swing.JFrame {
       ImageObject selectedImage = (ImageObject)item;
       BufferedImage resizeImage;
       if (ratioScale) {
-        resizeImage = imagePool.resizeImage(selectedImage.getImage(), percentScale);
+        resizeImage = resizer.resizeImage(selectedImage, percentScale);
       }
       else {
-        resizeImage = imagePool.resizeImage(selectedImage.getImage(), widthPx, heightPx);
+        resizeImage = resizer.resizeImage(selectedImage, widthPx, heightPx);
       }
       
       // Create New FileName
@@ -803,11 +786,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
       ImageObject resizeObject = new ImageObject(resizeImage, newName);
       imagePool.addImage(resizeObject);   
     }
-    photoList.setModel(new javax.swing.AbstractListModel () {
-          ImageObject[] imageListArray = imagePool.getImages().toArray(new ImageObject [imagePool.getImages().size()]);
-          public int getSize() { return imageListArray.length; }
-          public Object getElementAt(int i) { return imageListArray[i]; }          
-    });   
+    photoList.setModel(imagePool.generateList());
   }//GEN-LAST:event_resizeBtnActionPerformed
 
   private void hgtSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_hgtSpinnerStateChanged
@@ -854,8 +833,13 @@ public class MiniPicGUI extends javax.swing.JFrame {
   }//GEN-LAST:event_wdtSpinnerStateChanged
 
   private void previewResizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previewResizeBtnActionPerformed
+    if (photoList.getSelectedIndices().length == 0) {
+      JOptionPane.showMessageDialog(null, "No Image Selected For Preview", "Preview Error", JOptionPane.ERROR_MESSAGE);
+      return;
+    }
+    
     ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
-    BufferedImage previewImage = imagePool.resizeImage(selectedImage.getImage(), widthPx, heightPx);
+    BufferedImage previewImage = resizer.resizeImage(selectedImage, widthPx, heightPx);
     editedPreviewDiag.getContentPane().removeAll();
     editedPreviewDiag.getContentPane().setLayout(new BorderLayout());
     editedPreviewDiag.getContentPane().add(new JLabel(new ImageIcon(previewImage)));
@@ -955,7 +939,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     
     try {
       ImageObject selectedImage = (ImageObject)photoList.getSelectedValue();
-      BufferedImage zoomImage = imagePool.resizeImage(selectedImage.getImage(), zoomValue);
+      BufferedImage zoomImage = resizer.resizeImage(selectedImage, zoomValue);
       ImageIcon image = new ImageIcon(zoomImage);
       colorImgScroll.setViewportView(new JLabel(image));
       colorSelectDiag.pack();
@@ -1026,7 +1010,7 @@ public class MiniPicGUI extends javax.swing.JFrame {
     if (selectedImage.getImage().getWidth() < pWidth) { pWidth = selectedImage.getWidth(); }
     int pHeight = previewFrame.getHeight();
     if (selectedImage.getImage().getHeight() < pHeight) { pHeight = selectedImage.getHeight(); }
-    previewFrame.getContentPane().add(new JLabel(new ImageIcon(imagePool.resizeImage(selectedImage.getImage(),pWidth , pHeight))));
+    previewFrame.getContentPane().add(new JLabel(new ImageIcon(resizer.resizeImage(selectedImage,pWidth , pHeight))));
     previewFrame.updateUI();
     previewFrame.setVisible(true);
   }
@@ -1139,5 +1123,4 @@ public class MiniPicGUI extends javax.swing.JFrame {
   private javax.swing.JLabel widthLbl;
   private javax.swing.JLabel zoomLbl;
   // End of variables declaration//GEN-END:variables
-
 }

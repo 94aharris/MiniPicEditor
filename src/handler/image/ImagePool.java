@@ -32,26 +32,6 @@ public class ImagePool {
     return images;
 }
   
-  // Image manipulation code utilized from 
-  // http://www.javalobby.org/articles/ultimate-image/#1
-  // Originally Written by Josiah Hester (Java Lobby)
-  public BufferedImage resizeImage(BufferedImage img, int newWidth, int newHeight) {
-    int oldWidth = img.getWidth();
-    int oldHeight = img.getHeight();
-    BufferedImage dimg = new BufferedImage(newWidth, newHeight, img.getType());
-    Graphics2D g = dimg.createGraphics();  
-    g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);  
-    g.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, oldWidth, oldHeight, null);  
-    g.dispose();  
-    return dimg;
-  }
-  
-  public BufferedImage resizeImage (BufferedImage img, int percent) {
-    int newHeight = (img.getHeight() * percent) / 100;
-    int newWidth = (img.getWidth() * percent) / 100;
-    return resizeImage(img, newWidth, newHeight);
-  }
-  
   public void saveImage(BufferedImage img, String saveLocation, String fileName, SaveType saveFormat) throws IOException {
     String extension = "";
     switch(saveFormat) {
@@ -82,5 +62,9 @@ public class ImagePool {
           public int getSize() { return imageListArray.length; }
           public Object getElementAt(int i) { return imageListArray[i]; }          
         };
+  }
+  
+  public void clearPool() {
+    images.clear();
   }
 }
